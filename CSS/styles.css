@@ -1,0 +1,145 @@
+@import './constants.css';
+
+* {
+    /* CSS reset */
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Oswald', sans-serif;
+}
+
+.show-borders * {
+    outline: var(--debug-outline);
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--color-background);
+}
+
+.color-picker {
+    display: none;
+}
+
+.context-menu {
+    display: none;
+}
+
+
+
+
+
+button {
+    border-radius: var(--border-radius-button);
+}
+
+
+
+
+
+
+
+
+.side-panel {
+    width: 15%;  
+    background-color: var(--color-theme);
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px var(--color-drop-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-start;
+}
+
+.side-panel-item {
+    margin-top: 20px;
+    border-radius: var(--border-radius-button);
+}
+
+.side-panel h2 {
+    margin-top: 0;
+}
+
+.grid-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    overflow: auto; /* Allows the grid to scroll if it overflows */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+}
+
+.grid-item {
+    width: var(--size-cell);
+    height: var(--size-cell);
+    background-color: #cccccc;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    border-radius: var(--border-radius-cell);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.grid-item:hover {
+    outline: 4px solid var(--color-theme);
+    /* outline-offset: 0px; */
+}
+
+
+
+
+
+
+/* region context menu */
+.context-menu {
+    position: absolute;
+
+    width: 10%;
+    background-color: var(--color-theme);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+
+    z-index: 1000;
+
+
+
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.input-group {
+    color: var(--color-background);
+}
+
+.context-menu input {
+    margin-top: 5px;
+    margin-bottom: 0;
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    width: 7ch;
+}
+
+.context-menu button {
+    margin-top: 2px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-background);
+    color: var(--color-theme);
+    border: none;
+    cursor: pointer;
+}
+/* endregion */

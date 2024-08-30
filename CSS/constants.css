@@ -1,0 +1,14 @@
+:root {
+    --debug-outline: 2px solid darkcyan;
+
+    --color-theme: #333;
+    --color-background: #f0f0f0;
+
+    --color-drop-shadow: rgba(0, 0, 0, 0.3);
+
+    --border-radius-cell: 5%;
+    --border-radius-button: 10px;
+
+
+    --size-cell: 80px;
+}

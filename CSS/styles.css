@@ -101,6 +101,8 @@ body {
 
 .side-panel button:hover {
     background-color: var(--color-selection);  
+    color: white;
+
 }
 
 .side-panel p {

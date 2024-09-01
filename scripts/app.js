@@ -1,18 +1,21 @@
+import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
+
 const rows = 10;
 
 
 const columns = 6;
 const numItems = 25;
 
+const styles = getComputedStyle(document.body);
 
 const gridContainer = document.querySelector('.grid-container');
 const contextMenu = document.getElementById('context-menu');
 let currentGridItem = null;
 
 const resetButton = document.getElementById('reset-button');
+const saveButton = document.getElementById('save-button');
 
 
-const styles = getComputedStyle(document.body)
 
 
 
@@ -32,6 +35,14 @@ resetButton.addEventListener("click", function() {
     }
 });
 
+saveButton.addEventListener("click", function() {
+    html2canvas(gridContainer).then(canvas => {
+        let link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'codex.png';
+        link.click();
+    });
+});
 
 
 

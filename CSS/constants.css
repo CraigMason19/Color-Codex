@@ -7,6 +7,10 @@
     --color-c: #4B70F5;
     --color-selection: #3DC2EC;
 
+
+    --transition-duration: 0.3s;
+    --transition-effect: ease-in-out;
+
     --color-cell-default: #cccccc;
 
 

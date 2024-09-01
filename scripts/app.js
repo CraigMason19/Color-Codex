@@ -9,6 +9,11 @@ const gridContainer = document.querySelector('.grid-container');
 const contextMenu = document.getElementById('context-menu');
 let currentGridItem = null;
 
+const resetButton = document.getElementById('reset-button');
+
+
+const styles = getComputedStyle(document.body)
+
 
 
 // DEBUG
@@ -18,6 +23,14 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+
+resetButton.addEventListener("click", function() {
+    const cells = document.getElementsByClassName('grid-item');
+
+    for(let cell of cells) {
+        cell.style.backgroundColor = styles.getPropertyValue('--color-cell-default');
+    }
+});
 
 
 
@@ -35,12 +48,30 @@ gridContainer.style.gridTemplateColumns = gridWidth;
 // Dynamically create grid items
 function createCells() {
     for (let i = 0; i < numItems; i++) {
-
         const gridItem = document.createElement('div');
         gridItem.classList.add('grid-item');
 
         gridContainer.appendChild(gridItem);
     }
 }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 createCells();

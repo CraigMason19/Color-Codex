@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/styles.css">
 
-    <title>Color Pallete</title>
+    <title>Color Codex</title>
 </head>
 
 
@@ -13,11 +13,50 @@
 <body>
     <div class="side-panel">
         <!-- <ion-icon name="color-palette-outline"></ion-icon> -->
-        <h2>Options</h2>
+        <h1>Color Codex</h1>
         <!-- Add any buttons, controls, or information here -->
         <!-- <button onclick="resetColors()" class="side-panel-item">Reset Colors</button>
         <button onclick="savePalette()" class="side-panel-item">Save Palette</button> -->
+
+        <details open class="side-panel-item">
+            <summary>Options</summary>
+            <div>
+                <label for="size-input">Cell Size (px):</label>
+                <input type="text" id="size-input">
+
+                <input type="text">
+                <input type="text">
+                <input type="text">
+
+                <input type="checkbox">
+            </div>
+        </details>
+        
+        <details open class="side-panel-item">
+            <div>
+                <button>Reset</button>
+                <button>Convert to PNG (opens a new tab)</button>
+            </div>
+            <summary>Actions</summary>
+        </details>
+
+
+        <hr class="side-panel-item">
+
+        <p class="side-panel-item">Copy this text and save it to recreate the current codex</p>
+        <textarea class="side-panel-item">foo</textarea>
+
     </div>
+
+
+
+
+
+
+
+
+
+
 
     <div class="grid-container-wrapper">
         <div class="grid-container"></div>

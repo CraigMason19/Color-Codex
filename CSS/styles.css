@@ -198,13 +198,33 @@ body {
     width: 10%;
     background-color: var(--color-theme);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-
+ 
+margin:0px;
+padding: 0px;
     z-index: 1000;
+    color: white;
 
-
+    border-radius: 5px;
 
 }
+
+.context-menu-right {
+    width: fit-content;
+}
+
+
+
+.color-details p {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.color-details p:hover {
+    background-color: var(--color-selection);
+}
+
+ 
+
 
 .input-group {
     display: flex;
@@ -235,4 +255,66 @@ body {
     border: none;
     cursor: pointer;
 }
+
+
+.context-menu div {
+    padding: 10px;
+}
+.context-menu p {
+    margin: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
 /* endregion */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Popup style */
+.popup {
+    position: fixed;
+    top: 10%;   
+    left: calc(60%); /* Center horizontally relative to the remaining 80% of the screen (considering 20% sidebar) */
+    transform: translate(-50%, -50%);
+    padding: 10px;
+
+
+    color: white;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1001;
+    text-align: center;
+    width: 15%; 
+
+    background-color: aqua;
+
+
+}
+
+.popup p {
+    background-color: var(--color-theme);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.popup.show {
+    opacity: 1;
+}
+
+.popup-title {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+ 

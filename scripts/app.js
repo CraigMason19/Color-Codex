@@ -1,10 +1,11 @@
 import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
+ 
 const rows = 10;
 
 
-const columns = 6;
-const numItems = 25;
+const columns = 10;
+const numItems = 80;
 
 const styles = getComputedStyle(document.body);
 

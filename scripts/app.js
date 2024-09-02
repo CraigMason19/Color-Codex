@@ -1,7 +1,5 @@
 import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
-
- 
-const rows = 10;
+import showPopup from './popup.js';
 
 
 const columns = 10;
@@ -10,12 +8,17 @@ const numItems = 80;
 const styles = getComputedStyle(document.body);
 
 const gridContainer = document.querySelector('.grid-container');
-const contextMenu = document.getElementById('context-menu');
+
+const contextMenuLeft = document.getElementById('context-menu-left');
+const contextMenuRight = document.getElementById('context-menu-right');
+
+const popup = document.getElementById('popup');
+
+
 let currentGridItem = null;
 
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
-
 
 
 
@@ -49,6 +52,7 @@ saveButton.addEventListener("click", function() {
 
 
 // Set the max amount of columns, everything else will be added below
+// e.g. gridWisth = 'auto auto auto auto auto auto' <- 6 columns
 const gridWidth = Array(columns).fill("auto").join(" ");
 gridContainer.style.gridTemplateColumns = gridWidth;
 
@@ -63,25 +67,82 @@ function createCells() {
         const gridItem = document.createElement('div');
         gridItem.classList.add('grid-item');
 
+        // Left click
+        gridItem.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            contextMenuLeft.style.display = 'block';
+            contextMenuRight.style.display = 'none';
+            contextMenuLeft.style.left = `${e.pageX}px`;
+            contextMenuLeft.style.top = `${e.pageY}px`;
+
+            // Stop event propagation to prevent the global click listener from hiding the context menu
+            e.stopPropagation();
+        }, false);
+
+        // Right click
+        gridItem.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+
+            contextMenuRight.style.display = 'block';
+            contextMenuLeft.style.display = 'none';
+            contextMenuRight.style.left = `${e.pageX}px`;
+            contextMenuRight.style.top = `${e.pageY}px`;
+
+            // Stop event propagation to prevent the global click listener from hiding the context menu
+            e.stopPropagation();
+        }, false);
+
         gridContainer.appendChild(gridItem);
     }
 }
 
 
- 
+document.querySelectorAll('.color-input input').forEach(input => {
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+
+
+            let error = false;
+            if(error) {
+                input.classList.add('input-invalid');    
+                input.classList.remove('input-valid');                
+            }
+            else {
+                input.classList.add('input-valid');    
+                input.classList.remove('input-invalid');    
+            }
+
+
+            // showPopup("foo", "bar");
+        }
+    });
+});
+
+
+// Attach click event listeners to each <p> element inside color-details
+document.querySelectorAll('.color-details p').forEach(function(colorOption) {
+    colorOption.addEventListener('click', function() {
+        const colorValue = this.textContent;
+
+        popup.style.backgroundColor = 'blue';
+        showPopup("Color Copied", `${colorValue}`);
+    });
+});
 
 
 
+// Hide both context menus when clicking outside
+document.addEventListener('click', function(e) {
+    const contextMenuLeft = document.getElementById('context-menu-left');
+    const contextMenuRight = document.getElementById('context-menu-right');
 
-
-
-
-
-
-
-
-
-
+    // If the click target is not within either context menu, hide both
+    if (!contextMenuLeft.contains(e.target) && !contextMenuRight.contains(e.target)) {
+        contextMenuLeft.style.display = 'none';
+        contextMenuRight.style.display = 'none';
+    }
+});
 
 
 

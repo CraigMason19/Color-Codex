@@ -195,12 +195,13 @@ body {
 .context-menu {
     position: absolute;
 
-    width: 10%;
+    width: fit-content;
     background-color: var(--color-theme);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
  
-margin:0px;
-padding: 0px;
+    margin:0px;
+    padding: 0;
+
     z-index: 1000;
     color: white;
 
@@ -208,8 +209,55 @@ padding: 0px;
 
 }
 
-.context-menu-right {
-    width: fit-content;
+
+
+.color-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px !important;
+}
+
+.color-input label {
+    margin-right: 8px; /* Add space between label and input */
+}
+
+.color-input input {
+    padding: 5px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #24292e;
+    vertical-align: middle;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+
+
+    width: 15ch;
+}
+
+.color-input input:focus{
+    border-color: #0366d6;
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+}
+
+.input-valid {
+    border-color: #03d626 !important;
+    box-shadow: rgba(1, 68, 29, 0.3) 0px 0px 0px 3px !important;
+ 
+
+}
+
+.input-invalid {
+    border-color: #d60342 !important;
+    box-shadow: rgba(126, 1, 32, 0.3) 0px 0px 0px 3px !important;
+ 
+
 }
 
 
@@ -225,7 +273,7 @@ padding: 0px;
 
  
 
-
+/* 
 .input-group {
     display: flex;
     justify-content: space-between;
@@ -235,18 +283,11 @@ padding: 0px;
 
 .input-group {
     color: var(--color-background);
-}
+} */
 
-.context-menu input {
-    margin-top: 5px;
-    margin-bottom: 0;
-    width: 100px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    width: 7ch;
-}
 
-.context-menu button {
+
+/* .context-menu button {
     margin-top: 2px;
     width: 100%;
     padding: 10px;
@@ -254,7 +295,7 @@ padding: 0px;
     color: var(--color-theme);
     border: none;
     cursor: pointer;
-}
+} */
 
 
 .context-menu div {
@@ -281,7 +322,7 @@ padding: 0px;
 
 
 
-/* Popup style */
+/* region Popup style */
 .popup {
     position: fixed;
     top: 10%;   
@@ -297,10 +338,6 @@ padding: 0px;
     z-index: 1001;
     text-align: center;
     width: 15%; 
-
-    background-color: aqua;
-
-
 }
 
 .popup p {
@@ -317,4 +354,4 @@ padding: 0px;
     font-weight: bold;
     margin-bottom: 1rem;
 }
- 
+/* endregion */

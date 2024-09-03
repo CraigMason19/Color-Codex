@@ -71,6 +71,8 @@ function createCells() {
         gridItem.addEventListener('click', function(e) {
             e.preventDefault();
 
+            currentGridItem = gridItem; 
+
             contextMenuLeft.style.display = 'block';
             contextMenuRight.style.display = 'none';
             contextMenuLeft.style.left = `${e.pageX}px`;
@@ -83,6 +85,8 @@ function createCells() {
         // Right click
         gridItem.addEventListener('contextmenu', function(e) {
             e.preventDefault();
+
+            currentGridItem = gridItem; 
 
             contextMenuRight.style.display = 'block';
             contextMenuLeft.style.display = 'none';
@@ -110,9 +114,24 @@ document.querySelectorAll('.color-input input').forEach(input => {
             }
             else {
                 input.classList.add('input-valid');    
-                input.classList.remove('input-invalid');    
-            }
+                input.classList.remove('input-invalid');  
+                
+                switch (input.id) {
+                    // case "rgba-input":
+                    //     break;
 
+                    case "rgb255-input":
+                        currentGridItem.style.backgroundColor = `rgb${input.value.trim()}`;
+                        break;
+
+                    case "hex-input":
+                        currentGridItem.style.backgroundColor = `${input.value.trim()}`;
+                        break;
+
+                    default:
+                        break;
+                }       
+            }
 
             // showPopup("foo", "bar");
         }
@@ -125,8 +144,11 @@ document.querySelectorAll('.color-details p').forEach(function(colorOption) {
     colorOption.addEventListener('click', function() {
         const colorValue = this.textContent;
 
-        popup.style.backgroundColor = 'blue';
-        showPopup("Color Copied", `${colorValue}`);
+
+        if (currentGridItem) {
+            popup.style.backgroundColor = currentGridItem.style.backgroundColor;
+            showPopup("Color Copied", `${currentGridItem.style.backgroundColor}`);
+        }
     });
 });
 

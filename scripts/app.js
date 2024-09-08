@@ -1,6 +1,6 @@
 import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 import showPopup from './popup.js';
-
+import Color from './color.js';
 
 const columns = 10;
 const numItems = 80;
@@ -16,6 +16,8 @@ const popup = document.getElementById('popup');
 
 
 let currentGridItem = null;
+let currentColor = null;
+
 
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
@@ -93,6 +95,14 @@ function createCells() {
             contextMenuRight.style.left = `${e.pageX}px`;
             contextMenuRight.style.top = `${e.pageY}px`;
 
+            let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
+            currentColor = Color.fromRGB255(...rgbValues);
+
+            document.getElementById('color-copy-rgb').innerHTML = currentColor.toRgb();
+            document.getElementById('color-copy-rgb255').innerHTML = currentColor.toRgb255();
+            document.getElementById('color-copy-hex').innerHTML = currentColor.toHex();
+
+
             // Stop event propagation to prevent the global click listener from hiding the context menu
             e.stopPropagation();
         }, false);
@@ -125,7 +135,8 @@ document.querySelectorAll('.color-input input').forEach(input => {
                         break;
 
                     case "hex-input":
-                        currentGridItem.style.backgroundColor = `${input.value.trim()}`;
+                        const color = Color.fromHex(input.value.trim());
+                        currentGridItem.style.backgroundColor = color.toHex();
                         break;
 
                     default:
@@ -142,12 +153,26 @@ document.querySelectorAll('.color-input input').forEach(input => {
 // Attach click event listeners to each <p> element inside color-details
 document.querySelectorAll('.color-details p').forEach(function(colorOption) {
     colorOption.addEventListener('click', function() {
-        const colorValue = this.textContent;
-
 
         if (currentGridItem) {
-            popup.style.backgroundColor = currentGridItem.style.backgroundColor;
-            showPopup("Color Copied", `${currentGridItem.style.backgroundColor}`);
+            popup.style.backgroundColor = currentColor.toRgb255();
+
+            switch (colorOption.id) {
+                case "color-copy-rgb":
+                    showPopup("Color Copied", `${currentColor.toRgb()}`); 
+                    break;
+
+                case "color-copy-rgb255":
+                    showPopup("Color Copied", `${currentColor.toRgb255()}`); 
+                    break;
+
+                case "color-copy-hex":
+                    showPopup("Color Copied", `${currentColor.toHex()}`); 
+                    break;
+
+                default:
+                    break;
+            }            
         }
     });
 });

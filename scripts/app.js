@@ -2,7 +2,7 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import showPopup from './popup.js';
 import Color from './color.js';
-import { isValidRgb, isValidRgb255, isValidHex }  from './validation.js';
+import { isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
 const columns = 10;
 const numItems = 80;
@@ -142,6 +142,14 @@ document.querySelectorAll('.color-input input').forEach(input => {
                 case "hex-input":
                     if(isValidHex(input.value)) {
                         color = Color.fromHex(input.value);
+                        error = false;
+                    }
+
+                    break;
+
+                case "web-input":
+                    if(isValidWeb(input.value)) {
+                        color = Color.fromWeb(input.value);
                         error = false;
                     }
 

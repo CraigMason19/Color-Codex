@@ -44,3 +44,15 @@ export function isValidHex(input) {
     const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     return hexRegex.test(input);
 }
+
+export function isValidWeb(input) { 
+    if(isNullOrEmpty(input)) {
+        return false;
+    }
+
+    const s = new Option().style;
+    s.color = input;
+  
+    // s.color will be '' if the input was not valid
+    return s.color == input.toLowerCase();
+}

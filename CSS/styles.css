@@ -224,7 +224,7 @@ body {
 }
 
 .color-input input {
-    padding: 5px 12px;
+    padding: .3rem;
     font-size: 14px;
     line-height: 20px;
     color: #24292e;
@@ -246,11 +246,11 @@ body {
     box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 
-.input-valid {
+/* .input-valid {
     background-color: lightgreen !important; 
     border-color: #03d626 !important;
     box-shadow: rgba(1, 68, 29, 0.3) 0px 0px 0px 3px !important;
-}
+} */
 
 .input-invalid {
     background-color: lightcoral !important;

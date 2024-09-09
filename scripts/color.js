@@ -4,9 +4,9 @@ function clamp(value, min, max) {
 
 export default class Color {
     constructor(r, g, b) {
-        this.r = clamp(r, 0, 255);
-        this.g = clamp(g, 0, 255);
-        this.b = clamp(b, 0, 255);
+        this.r = Math.floor(clamp(r, 0, 255));
+        this.g = Math.floor(clamp(g, 0, 255));
+        this.b = Math.floor(clamp(b, 0, 255));
     }
     
     get data() {
@@ -61,5 +61,4 @@ export default class Color {
         
         return `#${d[0]}${d[1]}${d[2]}`;
     }
-
 }

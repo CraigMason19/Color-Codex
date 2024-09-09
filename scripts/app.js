@@ -1,6 +1,8 @@
 import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
+
 import showPopup from './popup.js';
 import Color from './color.js';
+import { isValidRgb, isValidRgb255, isValidHex }  from './validation.js';
 
 const columns = 10;
 const numItems = 80;
@@ -116,35 +118,49 @@ document.querySelectorAll('.color-input input').forEach(input => {
     input.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
 
+            let error = true;
+            let color = null;
 
-            let error = false;
+            switch (input.id) {
+                case "rgb-input":
+                    if(isValidRgb(input.value)) {
+                        color = Color.fromRGB(...input.value.split(','));
+                        error = false;
+                        console.log(color);
+                    }
+
+                    break;
+
+                case "rgb255-input":
+                    if(isValidRgb255(input.value)) {
+                        color = Color.fromRGB255(...input.value.split(','));
+                        error = false;
+                    }
+
+                    break;
+
+                case "hex-input":
+                    if(isValidHex(input.value)) {
+                        color = Color.fromHex(input.value);
+                        error = false;
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }       
+
             if(error) {
                 input.classList.add('input-invalid');    
                 input.classList.remove('input-valid');                
             }
             else {
+                currentGridItem.style.backgroundColor = color.toHex();
+
                 input.classList.add('input-valid');    
                 input.classList.remove('input-invalid');  
-                
-                switch (input.id) {
-                    // case "rgba-input":
-                    //     break;
-
-                    case "rgb255-input":
-                        currentGridItem.style.backgroundColor = `rgb${input.value.trim()}`;
-                        break;
-
-                    case "hex-input":
-                        const color = Color.fromHex(input.value.trim());
-                        currentGridItem.style.backgroundColor = color.toHex();
-                        break;
-
-                    default:
-                        break;
-                }       
             }
-
-            // showPopup("foo", "bar");
         }
     });
 });

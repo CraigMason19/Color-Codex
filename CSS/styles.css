@@ -247,17 +247,15 @@ body {
 }
 
 .input-valid {
+    background-color: lightgreen !important; 
     border-color: #03d626 !important;
     box-shadow: rgba(1, 68, 29, 0.3) 0px 0px 0px 3px !important;
- 
-
 }
 
 .input-invalid {
+    background-color: lightcoral !important;
     border-color: #d60342 !important;
     box-shadow: rgba(126, 1, 32, 0.3) 0px 0px 0px 3px !important;
- 
-
 }
 
 

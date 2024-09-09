@@ -199,6 +199,8 @@ document.querySelectorAll('.color-details p').forEach(function(colorOption) {
             } 
 
             navigator.clipboard.writeText(copyString);
+            contextMenuRight.style.display = 'none';
+            
             popup.style.backgroundColor = currentColor.toRgb255();
             showPopup("Color Copied", copyString); 
         }

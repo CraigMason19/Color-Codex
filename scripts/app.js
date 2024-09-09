@@ -174,34 +174,36 @@ document.querySelectorAll('.color-input input').forEach(input => {
 });
 
 
-// Attach click event listeners to each <p> element inside color-details
+
 document.querySelectorAll('.color-details p').forEach(function(colorOption) {
     colorOption.addEventListener('click', function() {
 
         if (currentGridItem) {
-            popup.style.backgroundColor = currentColor.toRgb255();
+            let copyString = null;
 
             switch (colorOption.id) {
                 case "color-copy-rgb":
-                    showPopup("Color Copied", `${currentColor.toRgb()}`); 
+                    copyString = currentColor.toRgb();
                     break;
 
                 case "color-copy-rgb255":
-                    showPopup("Color Copied", `${currentColor.toRgb255()}`); 
+                    copyString = currentColor.toRgb255();
                     break;
 
                 case "color-copy-hex":
-                    showPopup("Color Copied", `${currentColor.toHex()}`); 
+                    copyString = currentColor.toHex();
                     break;
 
                 default:
                     break;
-            }            
+            } 
+
+            navigator.clipboard.writeText(copyString);
+            popup.style.backgroundColor = currentColor.toRgb255();
+            showPopup("Color Copied", copyString); 
         }
     });
 });
-
-
 
 // Hide both context menus when clicking outside
 document.addEventListener('click', function(e) {
@@ -214,8 +216,6 @@ document.addEventListener('click', function(e) {
         contextMenuRight.style.display = 'none';
     }
 });
-
-
 
 
 createCells();

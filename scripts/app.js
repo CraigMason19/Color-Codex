@@ -113,67 +113,70 @@ function createCells() {
     }
 }
 
+function changeGridItemColor(input) {
+    let isValidInput = true;
+    let color = null;
+
+    switch (input.id) {
+        case "rgb-input":
+            if(isValidRgb(input.value)) {
+                color = Color.fromRGB(...input.value.split(','));
+                isValidInput = false;
+            }
+
+            break;
+
+        case "rgb255-input":
+            if(isValidRgb255(input.value)) {
+                color = Color.fromRGB255(...input.value.split(','));
+                isValidInput = false;
+            }
+
+            break;
+
+        case "hex-input":
+            if(isValidHex(input.value)) {
+                color = Color.fromHex(input.value);
+                isValidInput = false;
+            }
+
+            break;
+
+        case "web-input":
+            if(isValidWeb(input.value)) {
+                color = Color.fromWeb(input.value);
+                isValidInput = false;
+            }
+
+            break;
+
+        default:
+            break;
+    }       
+
+    if(isValidInput) {
+        input.classList.add('input-invalid');    
+        input.classList.remove('input-valid');                
+    }
+    else {
+        currentGridItem.style.backgroundColor = color.toHex();
+
+        input.classList.add('input-valid');    
+        input.classList.remove('input-invalid');  
+    }
+}
 
 document.querySelectorAll('.color-input input').forEach(input => {
+    input.addEventListener('input', function(event) {
+        changeGridItemColor(input);
+    });
+
     input.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
-
-            let error = true;
-            let color = null;
-
-            switch (input.id) {
-                case "rgb-input":
-                    if(isValidRgb(input.value)) {
-                        color = Color.fromRGB(...input.value.split(','));
-                        error = false;
-                        console.log(color);
-                    }
-
-                    break;
-
-                case "rgb255-input":
-                    if(isValidRgb255(input.value)) {
-                        color = Color.fromRGB255(...input.value.split(','));
-                        error = false;
-                    }
-
-                    break;
-
-                case "hex-input":
-                    if(isValidHex(input.value)) {
-                        color = Color.fromHex(input.value);
-                        error = false;
-                    }
-
-                    break;
-
-                case "web-input":
-                    if(isValidWeb(input.value)) {
-                        color = Color.fromWeb(input.value);
-                        error = false;
-                    }
-
-                    break;
-
-                default:
-                    break;
-            }       
-
-            if(error) {
-                input.classList.add('input-invalid');    
-                input.classList.remove('input-valid');                
-            }
-            else {
-                currentGridItem.style.backgroundColor = color.toHex();
-
-                input.classList.add('input-valid');    
-                input.classList.remove('input-invalid');  
-            }
+            changeGridItemColor(input);
         }
     });
 });
-
-
 
 document.querySelectorAll('.color-details p').forEach(function(colorOption) {
     colorOption.addEventListener('click', function() {

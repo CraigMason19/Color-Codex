@@ -207,9 +207,9 @@ function showCopyContextMenu(x, y) {
     let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
     currentColor = Color.fromRGB255(...rgbValues);
 
-    document.getElementById('color-copy-rgb').innerHTML = currentColor.toRgb();
-    document.getElementById('color-copy-rgb255').innerHTML = currentColor.toRgb255();
-    document.getElementById('color-copy-hex').innerHTML = currentColor.toHex();
+    document.getElementById('color-copy-rgb').querySelector('p').innerHTML = currentColor.toRgb();
+    document.getElementById('color-copy-rgb255').querySelector('p').innerHTML = currentColor.toRgb255();
+    document.getElementById('color-copy-hex').querySelector('p').innerHTML = currentColor.toHex();
 }
 
 function closeContextMenus() {
@@ -233,13 +233,13 @@ document.querySelectorAll('.color-input input').forEach(input => {
     });
 });
 
-document.querySelectorAll('.color-details p').forEach(function(colorOption) {
-    colorOption.addEventListener('click', function() {
+document.querySelectorAll('.color-copy-container').forEach(function(colorCopyContainer) {
+    colorCopyContainer.addEventListener('click', function() {
 
         if (currentGridItem) {
             let copyString = null;
 
-            switch (colorOption.id) {
+            switch (colorCopyContainer.id) {
                 case "color-copy-rgb":
                     copyString = currentColor.toRgb();
                     break;

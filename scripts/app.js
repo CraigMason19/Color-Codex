@@ -166,6 +166,11 @@ function changeGridItemColor(input) {
     }
 }
 
+function closeContextMenus() {
+    contextMenuLeft.style.display = 'none';
+    contextMenuRight.style.display = 'none';
+}
+
 document.querySelectorAll('.color-input input').forEach(input => {
     input.addEventListener('input', function(event) {
         changeGridItemColor(input);
@@ -210,17 +215,17 @@ document.querySelectorAll('.color-details p').forEach(function(colorOption) {
     });
 });
 
-// Hide both context menus when clicking outside
+// Hide both context menus when the click target is not within either context menu
 document.addEventListener('click', function(e) {
-    const contextMenuLeft = document.getElementById('context-menu-left');
-    const contextMenuRight = document.getElementById('context-menu-right');
-
-    // If the click target is not within either context menu, hide both
     if (!contextMenuLeft.contains(e.target) && !contextMenuRight.contains(e.target)) {
-        contextMenuLeft.style.display = 'none';
-        contextMenuRight.style.display = 'none';
+        closeContextMenus();
     }
 });
 
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeContextMenus();
+    }
+});
 
 createCells();

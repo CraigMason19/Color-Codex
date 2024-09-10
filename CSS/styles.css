@@ -242,8 +242,8 @@ body {
 }
 
 .color-input input:focus{
-    border-color: #0366d6;
-    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    border-color: var(--color-selection);
+    box-shadow: var(--color-selection) 0px 0px 0px 3px;
 }
 
 /* .input-valid {
@@ -255,7 +255,7 @@ body {
 .input-invalid {
     background-color: lightcoral !important;
     border-color: #d60342 !important;
-    box-shadow: rgba(126, 1, 32, 0.3) 0px 0px 0px 3px !important;
+    box-shadow: #d60342 0px 0px 0px 3px !important;
 }
 
 

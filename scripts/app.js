@@ -14,15 +14,21 @@ const gridContainer = document.querySelector('.grid-container');
 const contextMenuLeft = document.getElementById('context-menu-left');
 const contextMenuRight = document.getElementById('context-menu-right');
 
+const resetButton = document.getElementById('reset-button');
+const saveButton = document.getElementById('save-button');
+
 const popup = document.getElementById('popup');
 
 
 let currentGridItem = null;
 let currentColor = null;
 
+let lastMouseX = 0;
+let lastMouseY = 0;
 
-const resetButton = document.getElementById('reset-button');
-const saveButton = document.getElementById('save-button');
+
+
+
 
 
 
@@ -66,21 +72,26 @@ gridContainer.style.gridTemplateColumns = gridWidth;
 
 
 // Dynamically create grid items
+// Multiple event listeners
+// - Left click - open input color menu
+// - right click - open copy color menu
+// - CTRL + C - open copy color menu
+// - Mouse move to store the position of where to open the context menus
+// - Mouse enter / leave to focus / lose focus
 function createCells() {
     for (let i = 0; i < numItems; i++) {
         const gridItem = document.createElement('div');
         gridItem.classList.add('grid-item');
 
+        // Make the div focusable
+        gridItem.setAttribute('tabindex', '0');
+
         // Left click
         gridItem.addEventListener('click', function(e) {
-            e.preventDefault();
+            lastMouseX = e.pageX;
+            lastMouseY = e.pageY;
 
-            currentGridItem = gridItem; 
-
-            contextMenuLeft.style.display = 'block';
-            contextMenuRight.style.display = 'none';
-            contextMenuLeft.style.left = `${e.pageX}px`;
-            contextMenuLeft.style.top = `${e.pageY}px`;
+            showInputContextMenu(lastMouseX, lastMouseY);
 
             // Stop event propagation to prevent the global click listener from hiding the context menu
             e.stopPropagation();
@@ -90,23 +101,36 @@ function createCells() {
         gridItem.addEventListener('contextmenu', function(e) {
             e.preventDefault();
 
-            currentGridItem = gridItem; 
+            lastMouseX = e.pageX;
+            lastMouseY = e.pageY;
 
-            contextMenuRight.style.display = 'block';
-            contextMenuLeft.style.display = 'none';
-            contextMenuRight.style.left = `${e.pageX}px`;
-            contextMenuRight.style.top = `${e.pageY}px`;
+            showCopyContextMenu(lastMouseX, lastMouseY);
 
-            let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
-            currentColor = Color.fromRGB255(...rgbValues);
-
-            document.getElementById('color-copy-rgb').innerHTML = currentColor.toRgb();
-            document.getElementById('color-copy-rgb255').innerHTML = currentColor.toRgb255();
-            document.getElementById('color-copy-hex').innerHTML = currentColor.toHex();
-
-
-            // Stop event propagation to prevent the global click listener from hiding the context menu
             e.stopPropagation();
+        }, false);
+
+        // Track mouse position on mousemove
+        gridItem.addEventListener('mousemove', function(event) {
+            lastMouseX = event.pageX;
+            lastMouseY = event.pageY;
+        });
+
+        // Need to set the focus on the div in order to listen for keypresses
+        gridItem.addEventListener('mouseenter', function() {
+            currentGridItem = gridItem; 
+            gridItem.focus();
+        });
+
+        // Remove focus
+        gridItem.addEventListener('mouseleave', function() {
+            gridItem.blur(); 
+        });
+
+        // CTRL + C
+        gridItem.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+                showCopyContextMenu(lastMouseX, lastMouseY);
+            }
         }, false);
 
         gridContainer.appendChild(gridItem);
@@ -166,10 +190,36 @@ function changeGridItemColor(input) {
     }
 }
 
+// #region Context Menu
+function showInputContextMenu(x, y) {
+    contextMenuLeft.style.display = 'block';
+    contextMenuRight.style.display = 'none';
+    contextMenuLeft.style.left = `${x}px`;
+    contextMenuLeft.style.top = `${y}px`;
+}
+
+function showCopyContextMenu(x, y) {
+    contextMenuRight.style.display = 'block';
+    contextMenuLeft.style.display = 'none';
+    contextMenuRight.style.left = `${x}px`;
+    contextMenuRight.style.top = `${y}px`;
+
+    let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
+    currentColor = Color.fromRGB255(...rgbValues);
+
+    document.getElementById('color-copy-rgb').innerHTML = currentColor.toRgb();
+    document.getElementById('color-copy-rgb255').innerHTML = currentColor.toRgb255();
+    document.getElementById('color-copy-hex').innerHTML = currentColor.toHex();
+}
+
 function closeContextMenus() {
     contextMenuLeft.style.display = 'none';
     contextMenuRight.style.display = 'none';
 }
+// #endregion
+
+
+
 
 document.querySelectorAll('.color-input input').forEach(input => {
     input.addEventListener('input', function(event) {
@@ -227,5 +277,6 @@ document.addEventListener('keydown', function(event) {
         closeContextMenus();
     }
 });
+
 
 createCells();

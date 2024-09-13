@@ -19,19 +19,6 @@ body {
     background-color: var(--color-background);
 }
 
-.color-picker {
-    display: none;
-}
-
-.context-menu {
-    display: none;
-}
-
-
-
-
-
-
 
 
 
@@ -191,6 +178,22 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* region context menu */
 .context-menu {
     position: absolute;
@@ -208,6 +211,74 @@ body {
     border-radius: 5px;
 
 }
+
+.context-menu {
+    display: none;
+}
+
+.context-menu-right {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    display: none;
+}
+
+/* .context-menu button {
+    margin-top: 2px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-background);
+    color: var(--color-theme);
+    border: none;
+    cursor: pointer;
+} */
+
+
+.context-menu div {
+    padding: 10px;
+}
+
+.context-menu p {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -271,13 +342,6 @@ body {
 
 
 
-.context-menu-right {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    display: none;
-}
 
 .color-copy-container {
     display: flex;
@@ -323,25 +387,7 @@ body {
 
 
 
-/* .context-menu button {
-    margin-top: 2px;
-    width: 100%;
-    padding: 10px;
-    background-color: var(--color-background);
-    color: var(--color-theme);
-    border: none;
-    cursor: pointer;
-} */
 
-
-.context-menu div {
-    padding: 10px;
-}
-
-.context-menu p {
-    margin: 0;
-    padding: 5px 10px;
-}
 /* endregion */
 
 

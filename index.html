@@ -19,16 +19,32 @@
         
         <details open class="side-panel-item">
             <summary>Options</summary>
-            <div>
-                <label for="size-input">Cell Size (px):</label>
-                <input type="text" id="size-input">
+                <div class="input option-input">
+                    <label for="size-column-input">Column Count:</label>
+                    <input type="text" id="size-column-input" maxlength="4">
+                </div>
 
-                <input type="text">
-                <input type="text">
-                <input type="text">
+                <div class="input option-input">
+                    <label for="size-cell-input">Cell Size (px):</label>
+                    <input type="text" id="size-cell-input" maxlength="4">
+                </div>
 
-                <input type="checkbox">
-            </div>
+                <div class="input option-input">
+                    <label for="size-gap-input">Gap Size (px):</label>
+                    <input type="text" id="size-gap-input" maxlength="4">
+                </div>
+
+                <div class="input option-input">
+                    <label for="size-border-radius-input">Border Radius (px):</label>
+                    <input type="text" id="size-border-radius-input" maxlength="4">
+                </div>
+
+                <div class="input option-input">
+                    <form method="post" action="">
+                        <input type="text" pattern=".{9}" name="patternTest" title="Field must be 9 characters long" required />
+                        <input type="submit" />
+                    </form>
+                </div>
         </details>
         
         <details open class="side-panel-item">
@@ -75,24 +91,24 @@
 
     <!-- Context menu left -->
     <div class="context-menu context-menu-left" id="context-menu-left">
-        <div class="color-inputs">
-            <div class="color-input">
-                <label for="rgb-input" tabindex="0">RGB (0.0 - 1.0): </label>
-                <input type="text" id="rgb-input" value="0.8, 0.0, 0.8">
-            </div>    
-            <div class="color-input">
-                <label for="rgb255-input" tabindex="0">RGB (0 - 255): </label>
-                <input type="text" id="rgb255-input" value="200, 50, 00">
-            </div>  
-            <div class="color-input">
-                <label for="hex-input" tabindex="0">Hex: </label>
-                <input type="text" id="hex-input" value="#FF00FF">
-            </div>  
-            <div class="color-input">
-                <label for="web-input" tabindex="0">Web: </label>
-                <input type="text" id="web-input" value="cornflowerblue">
-            </div>  
-        </div>
+
+        <div class="input color-input">
+            <label for="rgb-input" tabindex="0">RGB (0.0 - 1.0): </label>
+            <input type="text" id="rgb-input" value="0.8, 0.0, 0.8">
+        </div>    
+        <div class="input color-input">
+            <label for="rgb255-input" tabindex="0">RGB (0 - 255): </label>
+            <input type="text" id="rgb255-input" value="200, 50, 00">
+        </div>  
+        <div class="input color-input">
+            <label for="hex-input" tabindex="0">Hex: </label>
+            <input type="text" id="hex-input" value="#FF00FF">
+        </div>  
+        <div class="input color-input">
+            <label for="web-input" tabindex="0">Web: </label>
+            <input type="text" id="web-input" value="cornflowerblue">
+        </div>  
+
     </div>
 
     <!-- Context menu right -->

@@ -27,10 +27,12 @@ let lastMouseX = 0;
 let lastMouseY = 0;
 
 
+function inRange(value, min, max) {
+    return value >= min && value <= max;
+}
 
 
-
-
+document.getElementById('size-column-input').value = columns;
 
 
 // DEBUG
@@ -62,11 +64,13 @@ saveButton.addEventListener("click", function() {
 
 
 // Set the max amount of columns, everything else will be added below
-// e.g. gridWisth = 'auto auto auto auto auto auto' <- 6 columns
-const gridWidth = Array(columns).fill("auto").join(" ");
-gridContainer.style.gridTemplateColumns = gridWidth;
+// e.g. gridWidth = 'auto auto auto auto auto auto' <- 6 columns
+function setGridContainerWidth(value) {
+    const width = Array(value).fill("auto").join(" ");
+    gridContainer.style.gridTemplateColumns = width;
 
-
+    console.log(value, width);
+}
 
 
 
@@ -190,6 +194,39 @@ function changeGridItemColor(input) {
     }
 }
 
+function processOptions(input) {
+    let isValidInput = false;
+    const value = parseInt(input.value);
+
+    switch (input.id) {
+        case "size-column-input":
+            // input.setAttribute('title', 'Values must be in the 1 - 64 range');
+
+            if(!isNaN(value) && inRange(value, 1, 64)) {
+                setGridContainerWidth(value);
+                isValidInput = true;
+            }
+
+            break;
+
+
+
+        default:
+            break;
+    }       
+
+    if(isValidInput) {
+        input.classList.add('input-valid');    
+        input.classList.remove('input-invalid');              
+    }
+    else {
+        currentGridItem = null;
+
+        input.classList.add('input-invalid');    
+        input.classList.remove('input-valid');  
+    }
+}
+
 // #region Context Menu
 function showInputContextMenu(x, y) {
     contextMenuLeft.style.display = 'block';
@@ -221,6 +258,28 @@ function closeContextMenus() {
 
 
 
+// Options settings changed
+document.querySelectorAll('.option-input input').forEach(input => {
+    input.addEventListener('input', function(event) {
+        processOptions(input);
+    });
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            processOptions(input);
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+//  Change color by enter or input validation
 document.querySelectorAll('.color-input input').forEach(input => {
     input.addEventListener('input', function(event) {
         changeGridItemColor(input);
@@ -278,5 +337,5 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-
+setGridContainerWidth(columns);
 createCells();

@@ -164,7 +164,6 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
-    gap: var(--cell-gap);
 }
 
 .grid-item {

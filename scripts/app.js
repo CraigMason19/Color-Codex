@@ -4,10 +4,14 @@ import showPopup from './popup.js';
 import Color from './color.js';
 import { isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
-const columns = 10;
+
+const defaultColumns = 10;
 const numItems = 80;
+const defaultGapSize = 10;
+
 
 const styles = getComputedStyle(document.body);
+
 
 const gridContainer = document.querySelector('.grid-container');
 
@@ -32,8 +36,8 @@ function inRange(value, min, max) {
 }
 
 
-document.getElementById('size-column-input').value = columns;
-
+document.getElementById('size-column-input').value = defaultColumns;
+document.getElementById('cell-gap-input').value = defaultGapSize;
 
 // DEBUG
 document.addEventListener('keydown', function(event) {
@@ -72,6 +76,9 @@ function setGridContainerWidth(value) {
     console.log(value, width);
 }
 
+function setGapSize(value) {
+    gridContainer.style.gap = `${value}px`;
+}
 
 
 
@@ -209,6 +216,15 @@ function processOptions(input) {
 
             break;
 
+        // case "cell-count-input"
+
+        case "cell-gap-input":
+            if(!isNaN(value) && inRange(value, 0, 64)) {
+                setGapSize(value);
+                isValidInput = true;
+            }
+
+            break;
 
 
         default:
@@ -337,5 +353,6 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-setGridContainerWidth(columns);
+setGridContainerWidth(defaultColumns);
+setGapSize(defaultGapSize);
 createCells();

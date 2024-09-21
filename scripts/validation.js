@@ -2,6 +2,10 @@ export function isNullOrEmpty(input) {
     return input === null || input === undefined || input.trim() === "";
 }
 
+export function isInRange(value, min, max) {
+    return value >= min && value <= max;
+}
+
 export function isValidRgb(input) {
     if(isNullOrEmpty(input)) {
         return false;

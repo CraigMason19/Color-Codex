@@ -2,7 +2,7 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import showPopup from './popup.js';
 import Color from './color.js';
-import { isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
+import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
 
 const defaultColumns = 10;
@@ -19,6 +19,7 @@ const gridContainer = document.querySelector('.grid-container');
 const contextMenuLeft = document.getElementById('context-menu-left');
 const contextMenuRight = document.getElementById('context-menu-right');
 
+const restoreDefaultsButton = document.getElementById('restore-defaults-button');
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
 
@@ -32,9 +33,17 @@ let lastMouseX = 0;
 let lastMouseY = 0;
 
 
-function inRange(value, min, max) {
-    return value >= min && value <= max;
-}
+
+// DEBUG
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'd' || event.key === 'D') {
+        document.body.classList.toggle('show-borders');
+    }
+});
+
+
+
+// #region Options
 
 function initOptions() {
     document.getElementById('size-column-input').value = defaultColumns;
@@ -48,34 +57,6 @@ function initOptions() {
     setGapSize(defaultGapSize);
     setBorderRadius(defaultBorderRadius);
 }
-
-// DEBUG
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'd' || event.key === 'D') {
-        document.body.classList.toggle('show-borders');
-    }
-});
-
-
-resetButton.addEventListener("click", function() {
-    const cells = document.getElementsByClassName('grid-item');
-
-    for(let cell of cells) {
-        cell.style.backgroundColor = styles.getPropertyValue('--color-cell-default');
-    }
-});
-
-saveButton.addEventListener("click", function() {
-    html2canvas(gridContainer).then(canvas => {
-        let link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = 'codex.png';
-        link.click();
-    });
-});
-
-
-
 
 // Set the max amount of columns, everything else will be added below
 // e.g. gridWidth = 'auto auto auto auto auto auto' <- 6 columns
@@ -106,6 +87,103 @@ function setBorderRadius(value) {
         item.style.borderRadius = `${value}px`;
     });
 }
+
+// Options settings changed
+document.querySelectorAll('.option-input input').forEach(input => {
+    input.addEventListener('input', function(event) {
+        processOptions(input);
+    });
+
+    // input.addEventListener('keydown', function(event) {
+    //     if (event.key === 'Enter') {
+    //         processOptions(input);
+    //     }
+    // });
+});
+
+function processOptions(input) {
+    let isValidInput = false;
+    const value = parseInt(input.value);
+
+    switch (input.id) {
+        case "size-column-input":
+            if(!isNaN(value) && isInRange(value, 1, 64)) {
+                setGridContainerWidth(value);
+                isValidInput = true;
+            }
+
+            break;
+
+        // case "cell-count-input":
+        case "cell-size-input":
+            if(!isNaN(value) && isInRange(value, 1, 250)) {
+                setCellSize(value);
+                isValidInput = true;
+            }
+
+            break;
+
+        case "cell-gap-input":
+            if(!isNaN(value) && isInRange(value, 0, 64)) {
+                setGapSize(value);
+                isValidInput = true;
+            }
+
+            break;
+
+        case "cell-border-radius-input":
+            if(!isNaN(value) && isInRange(value, 0, 100)) {
+                setBorderRadius(value);
+                isValidInput = true;
+            }
+
+            break;
+
+
+        default:
+            break;
+    }       
+
+    if(isValidInput) {
+        input.classList.add('input-valid');    
+        input.classList.remove('input-invalid');              
+    }
+    else {
+        currentGridItem = null;
+
+        input.classList.add('input-invalid');    
+        input.classList.remove('input-valid');  
+    }
+}
+
+// #endregion
+
+// #region Actions
+
+restoreDefaultsButton.addEventListener("click", function() {
+    initOptions();
+});
+
+resetButton.addEventListener("click", function() {
+    const cells = document.getElementsByClassName('grid-item');
+
+    for(let cell of cells) {
+        cell.style.backgroundColor = styles.getPropertyValue('--color-cell-default');
+    }
+});
+
+saveButton.addEventListener("click", function() {
+    html2canvas(gridContainer).then(canvas => {
+        let link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'codex.png';
+        link.click();
+    });
+});
+
+// #endregion
+
+
 
 
 
@@ -229,62 +307,8 @@ function changeGridItemColor(input) {
     }
 }
 
-function processOptions(input) {
-    let isValidInput = false;
-    const value = parseInt(input.value);
-
-    switch (input.id) {
-        case "size-column-input":
-            if(!isNaN(value) && inRange(value, 1, 64)) {
-                setGridContainerWidth(value);
-                isValidInput = true;
-            }
-
-            break;
-
-        // case "cell-count-input":
-        case "cell-size-input":
-            if(!isNaN(value) && inRange(value, 1, 250)) {
-                setCellSize(value);
-                isValidInput = true;
-            }
-
-            break;
-
-        case "cell-gap-input":
-            if(!isNaN(value) && inRange(value, 0, 64)) {
-                setGapSize(value);
-                isValidInput = true;
-            }
-
-            break;
-
-        case "cell-border-radius-input":
-            if(!isNaN(value) && inRange(value, 0, 100)) {
-                setBorderRadius(value);
-                isValidInput = true;
-            }
-
-            break;
-
-
-        default:
-            break;
-    }       
-
-    if(isValidInput) {
-        input.classList.add('input-valid');    
-        input.classList.remove('input-invalid');              
-    }
-    else {
-        currentGridItem = null;
-
-        input.classList.add('input-invalid');    
-        input.classList.remove('input-valid');  
-    }
-}
-
 // #region Context Menu
+
 function showInputContextMenu(x, y) {
     contextMenuLeft.style.display = 'block';
     contextMenuRight.style.display = 'none';
@@ -310,26 +334,8 @@ function closeContextMenus() {
     contextMenuLeft.style.display = 'none';
     contextMenuRight.style.display = 'none';
 }
+
 // #endregion
-
-
-
-
-// Options settings changed
-document.querySelectorAll('.option-input input').forEach(input => {
-    input.addEventListener('input', function(event) {
-        processOptions(input);
-    });
-
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            processOptions(input);
-        }
-    });
-});
-
-
-
 
 
 

@@ -5,10 +5,10 @@ import Color from './color.js';
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
 const defaultOptions = {
-    columns: 10,
-    cellCount: 20,
+    columns: 6,
+    cellCount: 25,
     gapSize: 10,
-    borderRadius: 10,
+    borderRadius: 15,
     cellSize: 80
 };
 

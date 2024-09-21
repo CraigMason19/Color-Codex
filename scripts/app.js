@@ -8,6 +8,7 @@ import { isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation
 const defaultColumns = 10;
 const numItems = 80;
 const defaultGapSize = 10;
+const defaultBorderRadius = 10;
 
 
 const styles = getComputedStyle(document.body);
@@ -35,9 +36,15 @@ function inRange(value, min, max) {
     return value >= min && value <= max;
 }
 
+function initOptions() {
+    document.getElementById('size-column-input').value = defaultColumns;
+    document.getElementById('cell-gap-input').value = defaultGapSize;
+    document.getElementById('cell-border-radius-input').value = defaultBorderRadius;
 
-document.getElementById('size-column-input').value = defaultColumns;
-document.getElementById('cell-gap-input').value = defaultGapSize;
+    setGridContainerWidth(defaultColumns);
+    setGapSize(defaultGapSize);
+    setBorderRadius(defaultBorderRadius);
+}
 
 // DEBUG
 document.addEventListener('keydown', function(event) {
@@ -80,6 +87,13 @@ function setGapSize(value) {
     gridContainer.style.gap = `${value}px`;
 }
 
+function setBorderRadius(value) {
+    let cells = document.querySelectorAll('.grid-item');
+    
+    cells.forEach(item => {
+        item.style.borderRadius = `${value}px`;
+    });
+}
 
 
 // Dynamically create grid items
@@ -207,8 +221,6 @@ function processOptions(input) {
 
     switch (input.id) {
         case "size-column-input":
-            // input.setAttribute('title', 'Values must be in the 1 - 64 range');
-
             if(!isNaN(value) && inRange(value, 1, 64)) {
                 setGridContainerWidth(value);
                 isValidInput = true;
@@ -216,11 +228,20 @@ function processOptions(input) {
 
             break;
 
-        // case "cell-count-input"
+        // case "cell-count-input":
+        // case "cell-size-input":
 
         case "cell-gap-input":
             if(!isNaN(value) && inRange(value, 0, 64)) {
                 setGapSize(value);
+                isValidInput = true;
+            }
+
+            break;
+
+        case "cell-border-radius-input":
+            if(!isNaN(value) && inRange(value, 0, 100)) {
+                setBorderRadius(value);
                 isValidInput = true;
             }
 
@@ -353,6 +374,5 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-setGridContainerWidth(defaultColumns);
-setGapSize(defaultGapSize);
 createCells();
+initOptions();

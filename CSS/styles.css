@@ -173,7 +173,7 @@ body {
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
-    border-radius: var(--border-radius-cell);
+    /* border-radius: var(--border-radius-cell); */
     cursor: pointer;
     transition: background-color 0.2s;
 

@@ -9,7 +9,7 @@ const defaultColumns = 10;
 const numItems = 80;
 const defaultGapSize = 10;
 const defaultBorderRadius = 10;
-
+const defaultCellSize = 80;
 
 const styles = getComputedStyle(document.body);
 
@@ -39,9 +39,12 @@ function inRange(value, min, max) {
 function initOptions() {
     document.getElementById('size-column-input').value = defaultColumns;
     document.getElementById('cell-gap-input').value = defaultGapSize;
+    document.getElementById('cell-size-input').value = defaultCellSize;
     document.getElementById('cell-border-radius-input').value = defaultBorderRadius;
 
+
     setGridContainerWidth(defaultColumns);
+    setCellSize(defaultCellSize);
     setGapSize(defaultGapSize);
     setBorderRadius(defaultBorderRadius);
 }
@@ -87,6 +90,15 @@ function setGapSize(value) {
     gridContainer.style.gap = `${value}px`;
 }
 
+function setCellSize(value) {
+    let cells = document.querySelectorAll('.grid-item');
+    
+    cells.forEach(item => {
+        item.style.width = `${value}px`;
+        item.style.height = `${value}px`;
+    });
+}
+
 function setBorderRadius(value) {
     let cells = document.querySelectorAll('.grid-item');
     
@@ -94,6 +106,8 @@ function setBorderRadius(value) {
         item.style.borderRadius = `${value}px`;
     });
 }
+
+
 
 
 // Dynamically create grid items
@@ -229,7 +243,13 @@ function processOptions(input) {
             break;
 
         // case "cell-count-input":
-        // case "cell-size-input":
+        case "cell-size-input":
+            if(!isNaN(value) && inRange(value, 1, 250)) {
+                setCellSize(value);
+                isValidInput = true;
+            }
+
+            break;
 
         case "cell-gap-input":
             if(!isNaN(value) && inRange(value, 0, 64)) {

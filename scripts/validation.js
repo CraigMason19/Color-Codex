@@ -60,3 +60,7 @@ export function isValidWeb(input) {
     // s.color will be '' if the input was not valid
     return s.color == input.toLowerCase();
 }
+
+export function isValidCodexData(lines) {
+    return true;
+}

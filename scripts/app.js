@@ -223,6 +223,7 @@ saveButton.addEventListener("click", function() {
 // - Mouse enter / leave to focus / lose focus
 function createCells(cellCount) {
     gridContainer.innerHTML = '';  // This removes all child elements
+    setGapSize(currentOptions.gapSize);
 
     for (let i = 0; i < cellCount; i++) {
         const gridItem = document.createElement('div');

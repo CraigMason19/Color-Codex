@@ -5,7 +5,7 @@ import Color from './color.js';
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
 const defaultOptions = {
-    columns: 6,
+    columnCount: 6,
     cellCount: 25,
     gapSize: 10,
     borderRadius: 15,
@@ -13,16 +13,15 @@ const defaultOptions = {
 };
 
 const currentOptions = {
-    columns: defaultOptions.columns,
+    columnCount: defaultOptions.columnCount,
     cellCount: defaultOptions.cellCount,
     gapSize: defaultOptions.gapSize,
-    borderRadius: defaultOptions.defaultBorderRadius,
+    borderRadius: defaultOptions.borderRadius,
     cellSize: defaultOptions.cellSize
 };
 
 const styles = getComputedStyle(document.body);
 const popup = document.getElementById('popup');
-
 
 const gridContainer = document.querySelector('.grid-container');
 
@@ -33,6 +32,7 @@ const restoreDefaultsButton = document.getElementById('restore-defaults-button')
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
 
+const codexTextData = document.getElementById('codex-text-data');
 
 
 let currentGridItem = null;
@@ -55,21 +55,21 @@ document.addEventListener('keydown', function(event) {
 // #region Options
 
 function initOptions() {
-    document.getElementById('size-column-input').value = defaultOptions.columns;
+    document.getElementById('size-column-input').value = defaultOptions.columnCount;
     document.getElementById('cell-count-input').value = defaultOptions.cellCount;
     document.getElementById('cell-gap-input').value = defaultOptions.gapSize;
     document.getElementById('cell-size-input').value = defaultOptions.cellSize;
     document.getElementById('cell-border-radius-input').value = defaultOptions.borderRadius;
 
-    setGridContainerWidth(defaultOptions.columns);
+    setGridContainerWidth(defaultOptions.columnCount);
     createCells(defaultOptions.cellCount);
     setCellSize(defaultOptions.cellSize);
     setGapSize(defaultOptions.defaultGapSize);
     setBorderRadius(defaultOptions.borderRadius);
 }
 
-// Set the max amount of columns, everything else will be added below
-// e.g. gridWidth = 'auto auto auto auto auto auto' <- 6 columns
+// Set the max amount of columnCount, everything else will be added below
+// e.g. gridWidth = 'auto auto auto auto auto auto' <- 6 columnCount
 function setGridContainerWidth(value) {
     const width = Array(value).fill("auto").join(" ");
     gridContainer.style.gridTemplateColumns = width;
@@ -116,9 +116,9 @@ function processOptions(input) {
     switch (input.id) {
         case "size-column-input":
             if(!isNaN(value) && isInRange(value, 1, 64)) {
-                currentOptions.columns = value;
+                currentOptions.columnCount = value;
 
-                setGridContainerWidth(currentOptions.columns);
+                setGridContainerWidth(currentOptions.columnCount);
                 isValidInput = true;
             }
 
@@ -172,7 +172,8 @@ function processOptions(input) {
 
     if(isValidInput) {
         input.classList.add('input-valid');    
-        input.classList.remove('input-invalid');              
+        input.classList.remove('input-invalid');    
+        updateDataTextBox();
     }
     else {
         currentGridItem = null;
@@ -228,6 +229,7 @@ function createCells(cellCount) {
     for (let i = 0; i < cellCount; i++) {
         const gridItem = document.createElement('div');
         gridItem.classList.add('grid-item');
+        gridItem.style.backgroundColor = Color.fromHex(styles.getPropertyValue('--color-cell-default')).toHex();
 
         // Make the div focusable
         gridItem.setAttribute('tabindex', '0');
@@ -326,10 +328,11 @@ function changeGridItemColor(input) {
 
     if(isValidInput) {
         input.classList.add('input-invalid');    
-        input.classList.remove('input-valid');                
+        input.classList.remove('input-valid');     
     }
     else {
         currentGridItem.style.backgroundColor = color.toHex();
+        updateDataTextBox();
 
         input.classList.add('input-valid');    
         input.classList.remove('input-invalid');  
@@ -430,4 +433,24 @@ document.addEventListener('keydown', function(event) {
 });
 
 
+
+function updateDataTextBox() {
+    codexTextData.value = "// Options\n";
+    codexTextData.value += `Column Count: ${currentOptions.columnCount}\n`;
+    codexTextData.value += `Cell Count: ${currentOptions.cellCount}\n`;
+    codexTextData.value += `Cell Size: ${currentOptions.cellSize}\n`;
+    codexTextData.value += `Gap Size: ${currentOptions.gapSize}\n`;
+    codexTextData.value += `Border Radius: ${currentOptions.borderRadius}\n`;
+
+    codexTextData.value += "\n// Grid Items\n";
+
+    let cells = document.querySelectorAll('.grid-item');
+    
+    cells.forEach(item => {
+        codexTextData.value += `Grid Item: ${item.style.backgroundColor}\n`;
+    });
+};
+
+
 initOptions();
+updateDataTextBox();

@@ -21,5 +21,11 @@ Export your color maps as PNG files for use in other applications.
 - **Color Code Access**<br/>
 Quickly retrieve HEX codes and RGB values (in both the 0-255 and 0.0-1.0 ranges) for each color.
 
+## Installation
+Run the following command to install all required dependencies, including html2canvas:
+```
+npm install
+```
+
 ## Screenshots
 ![screen-1](https://github.com/CraigMason19/Color-Codex/blob/master/screenshots/screen-1.png)

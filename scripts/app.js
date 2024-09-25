@@ -31,6 +31,7 @@ const contextMenuRight = document.getElementById('context-menu-right');
 const restoreDefaultsButton = document.getElementById('restore-defaults-button');
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
+const copyCodexButton = document.getElementById('copy-codex-button');
 
 const codexTextData = document.getElementById('codex-text-data');
 
@@ -206,6 +207,12 @@ saveButton.addEventListener("click", function() {
         link.download = 'codex.png';
         link.click();
     });
+});
+
+copyCodexButton.addEventListener("click", function() {
+    navigator.clipboard.writeText(codexTextData.value);
+    popup.style.backgroundColor = 'transparent';
+    showPopup("Codex Copied", "Keep it safe to rebuild the codex later");
 });
 
 // #endregion

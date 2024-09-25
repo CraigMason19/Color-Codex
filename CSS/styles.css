@@ -428,7 +428,8 @@ body {
     transition: opacity 0.5s ease-in-out;
     z-index: 1001;
     text-align: center;
-    width: 15%; 
+    min-width: 15%;
+    width: fit-content; 
 }
 
 .popup p {

@@ -21,6 +21,9 @@ const currentOptions = {
 };
 
 const styles = getComputedStyle(document.body);
+const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-default'));
+const themeColor = Color.fromHex(styles.getPropertyValue('--color-theme'));
+
 const popup = document.getElementById('popup');
 
 const gridContainer = document.querySelector('.grid-container');
@@ -196,7 +199,7 @@ resetButton.addEventListener("click", function() {
     const cells = document.getElementsByClassName('grid-item');
 
     for(let cell of cells) {
-        cell.style.backgroundColor = styles.getPropertyValue('--color-cell-default');
+        cell.style.backgroundColor = defaultCellColor;
     }
 });
 
@@ -211,8 +214,7 @@ saveButton.addEventListener("click", function() {
 
 copyCodexButton.addEventListener("click", function() {
     navigator.clipboard.writeText(codexTextData.value);
-    popup.style.backgroundColor = 'transparent';
-    showPopup("Codex Copied", "Keep it safe to rebuild the codex later");
+    showPopup("Codex Copied", "Keep it safe to rebuild the codex later", themeColor);
 });
 
 // #endregion
@@ -236,7 +238,7 @@ function createCells(cellCount) {
     for (let i = 0; i < cellCount; i++) {
         const gridItem = document.createElement('div');
         gridItem.classList.add('grid-item');
-        gridItem.style.backgroundColor = Color.fromHex(styles.getPropertyValue('--color-cell-default')).toHex();
+        gridItem.style.backgroundColor = defaultCellColor.toHex();
 
         // Make the div focusable
         gridItem.setAttribute('tabindex', '0');
@@ -420,8 +422,7 @@ document.querySelectorAll('.color-copy-container').forEach(function(colorCopyCon
             navigator.clipboard.writeText(copyString);
             contextMenuRight.style.display = 'none';
             
-            popup.style.backgroundColor = currentColor.toRgb255();
-            showPopup("Color Copied", copyString); 
+            showPopup("Color Copied", copyString, currentColor); 
         }
     });
 });

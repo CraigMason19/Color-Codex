@@ -25,6 +25,7 @@ const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-def
 const themeColor = Color.fromHex(styles.getPropertyValue('--color-theme'));
 
 const popup = document.getElementById('popup');
+const modal = document.getElementById('modal');
 
 const gridContainer = document.querySelector('.grid-container');
 
@@ -35,6 +36,12 @@ const restoreDefaultsButton = document.getElementById('restore-defaults-button')
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
 const copyCodexButton = document.getElementById('copy-codex-button');
+const restoreCodexButton = document.getElementById('restore-codex-button');
+
+const modalCloseButton = document.getElementById('modal-close-button');
+const modalRestoreButton = document.getElementById('modal-restore-button');
+const modalTextArea = document.getElementById('modal-text-area');
+
 
 const codexTextData = document.getElementById('codex-text-data');
 
@@ -217,10 +224,25 @@ copyCodexButton.addEventListener("click", function() {
     showPopup("Codex Copied", "Keep it safe to rebuild the codex later", themeColor);
 });
 
+restoreCodexButton.addEventListener("click", function() {
+    initModal();
+});
+
 // #endregion
 
 
+// #region Modal
+function initModal() {
+    modalRestoreButton.disabled = true;
+    modalTextArea.value = "";
 
+    modal.style.visibility = "visible";
+}
+
+modalCloseButton.addEventListener("click", function() {
+    modal.style.visibility = "hidden";
+});
+// #endregion
 
 
 

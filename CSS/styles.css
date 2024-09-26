@@ -94,8 +94,15 @@ body {
     margin: 2% 0%;
 }
 
+.side-panel textarea {
+    font-size: 1rem;
+    height: 100%;
+    resize: none;
+    background-color: lightgray;
+}
 
-.side-panel button {
+
+button {
     width: 100%;
     height: 40px;
     border-radius: var(--border-radius-button);
@@ -108,24 +115,24 @@ body {
                 color var(--transition-duration) var(--transition-effect);
 }
 
-.side-panel button:hover {
+button:hover {
     background-color: var(--color-selection);  
     color: white;
 }
 
-.side-panel ion-icon {
-    font-size: 1.5rem;
-    margin-right: 5%;
-}
-
-
-
-.side-panel textarea {
-    font-size: 1rem;
-    height: 100%;
-    resize: none;
+button:disabled {
     background-color: lightgray;
+    color: black;
 }
+
+button ion-icon {
+    font-size: 1.5rem;
+    margin:5px;
+}
+
+
+
+
  
  
 
@@ -413,7 +420,8 @@ body {
 
 
 
-/* region Popup style */
+/* region Popup */
+
 .popup {
     position: fixed;
     top: 10%;   
@@ -447,4 +455,67 @@ body {
     font-weight: bold;
     margin-bottom: 1rem;
 }
+/* endregion */
+
+
+
+
+
+
+
+
+
+/* region Modal */
+.modal {
+    visibility: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    transition: opacity 0.5s ease-in-out;
+
+    color: white;
+}
+  
+.modal-content {
+    position: absolute; /* Positioning the content */
+    top: 15%; /* Position from top */
+    left: 50%; /* Position from left */
+    transform: translate(-50%, 0%);
+    background-color: white; /* White background */
+    padding: 10px; /* Some padding */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for effect */
+
+    width: 40%;
+    height: 60%;
+
+    background-color: var(--color-theme);
+
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+.modal p {
+    text-align: center;
+}
+
+.modal textarea {
+    font-size: 1rem;
+    width: 100%;
+    height: 85%;
+    resize: none;
+}
+
+.modal-buttons {
+    display: flex;
+}
+
 /* endregion */

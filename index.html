@@ -80,7 +80,7 @@
     </div>
 
 
-    <!-- Popup element -->
+    <!-- Popup -->
     <div id="popup" class="popup">
         <p id="popup-title" class="popup-title">Color Selected</p>
         <p id="popup-content" class="popup-content"></p>
@@ -91,6 +91,25 @@
         <div class="grid-container"></div>
     </div>
 
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p>Paste in a saved codex to recreated it here</p>
+            <textarea id="modal-text-area"></textarea>
+
+            <div class="modal-buttons">
+                <button id="modal-restore-button">
+                    <ion-icon name="clipboard-outline"></ion-icon>
+                    Restore Codex
+                </button>
+
+                <button id="modal-close-button">
+                    <ion-icon name="close-outline"></ion-icon>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Context menu left -->
     <div class="context-menu context-menu-left" id="context-menu-left">

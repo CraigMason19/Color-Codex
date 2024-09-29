@@ -19,7 +19,9 @@ body {
     background-color: var(--color-background);
 }
 
-
+textarea {
+    border-radius: 5px;
+}
 
 
 

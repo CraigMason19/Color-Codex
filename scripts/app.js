@@ -2,7 +2,7 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import showPopup from './popup.js';
 import Color from './color.js';
-import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
+import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb, isValidCodexData }  from './validation.js';
 
 const defaultOptions = {
     columnCount: 6,
@@ -25,7 +25,11 @@ const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-def
 const themeColor = Color.fromHex(styles.getPropertyValue('--color-theme'));
 
 const popup = document.getElementById('popup');
+
 const modal = document.getElementById('modal');
+const modalCloseButton = document.getElementById('modal-close-button');
+const modalRestoreButton = document.getElementById('modal-restore-button');
+const modalTextArea = document.getElementById('modal-text-area');
 
 const gridContainer = document.querySelector('.grid-container');
 
@@ -37,11 +41,6 @@ const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
 const copyCodexButton = document.getElementById('copy-codex-button');
 const restoreCodexButton = document.getElementById('restore-codex-button');
-
-const modalCloseButton = document.getElementById('modal-close-button');
-const modalRestoreButton = document.getElementById('modal-restore-button');
-const modalTextArea = document.getElementById('modal-text-area');
-
 
 const codexTextData = document.getElementById('codex-text-data');
 
@@ -241,6 +240,15 @@ function initModal() {
 
 modalCloseButton.addEventListener("click", function() {
     modal.style.visibility = "hidden";
+});
+
+modalTextArea.addEventListener("input", function() {
+    if(isValidCodexData()) {
+        this.classList.remove('input-invalid');  
+    }
+    else {
+        this.classList.add('input-invalid');   
+    }
 });
 // #endregion
 

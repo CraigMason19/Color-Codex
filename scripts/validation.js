@@ -62,5 +62,5 @@ export function isValidWeb(input) {
 }
 
 export function isValidCodexData(lines) {
-    return true;
+    return false;
 }

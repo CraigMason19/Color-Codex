@@ -4,6 +4,9 @@
   },
   "main": "index.js",
   "devDependencies": {
+    "@babel/core": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0"
   },
   "scripts": {
@@ -15,5 +18,10 @@
   "name": "color-codex",
   "description": "- **Technologies Used**<br/>\r JavaScript, CSS, HTML",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  }
 }

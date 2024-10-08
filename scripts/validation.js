@@ -1,12 +1,12 @@
-function isNullOrEmpty(input) {
+export function isNullOrEmpty(input) {
     return input === null || input === undefined || input.trim() === "";
 }
 
-function isInRange(value, min, max) {
+export function isInRange(value, min, max) {
     return value >= min && value <= max;
 }
 
-function isValidRgb(input) {
+export function isValidRgb(input) {
     if(isNullOrEmpty(input)) {
         return false;
     }
@@ -23,7 +23,7 @@ function isValidRgb(input) {
     return false;
 }
 
-function isValidRgb255(input) {
+export function isValidRgb255(input) {
     if(isNullOrEmpty(input)) {
         return false;
     }
@@ -40,7 +40,7 @@ function isValidRgb255(input) {
     return false;
 }
 
-function isValidHex(input) { 
+export function isValidHex(input) { 
     if(isNullOrEmpty(input)) {
         return false;
     }
@@ -49,7 +49,7 @@ function isValidHex(input) {
     return hexRegex.test(input);
 }
 
-function isValidWeb(input) { 
+export function isValidWeb(input) { 
     if(isNullOrEmpty(input)) {
         return false;
     }
@@ -60,12 +60,3 @@ function isValidWeb(input) {
     // s.color will be '' if the input was not valid
     return s.color == input.toLowerCase();
 }
-
-module.exports = {
-    isNullOrEmpty,
-    isInRange,
-    isValidRgb,
-    isValidRgb255,
-    isValidHex,
-    isValidWeb,
-};

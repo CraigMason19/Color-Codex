@@ -2,7 +2,9 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import showPopup from './popup.js';
 import Color from './color.js';
-import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb, isValidCodexData }  from './validation.js';
+import CodexData from './codex-data.js';
+
+import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
 const defaultOptions = {
     columnCount: 6,
@@ -243,11 +245,16 @@ modalCloseButton.addEventListener("click", function() {
 });
 
 modalTextArea.addEventListener("input", function() {
-    if(isValidCodexData()) {
+    const cd = CodexData.fromLines(modalTextArea.value);
+    console.log(cd);
+    
+    if(cd.isValid) {
         this.classList.remove('input-invalid');  
+        modalRestoreButton.disabled = false;
     }
     else {
         this.classList.add('input-invalid');   
+        modalRestoreButton.disabled = true; 
     }
 });
 // #endregion

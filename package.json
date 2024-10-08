@@ -1,5 +1,19 @@
 {
   "dependencies": {
     "html2canvas": "^1.4.1"
-  }
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/jest/bin/jest.js --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "name": "color-codex",
+  "description": "- **Technologies Used**<br/>\r JavaScript, CSS, HTML",
+  "version": "1.0.0",
+  "type": "module"
 }

@@ -21,11 +21,11 @@ export function isInRange(value, inclusiveMin, inclusiveMax) {
 }
 
 /**
- * Checks if a given input string is acceptable as r g b number.
+ * Checks if a given input string is acceptable as a 'rgb' color.
  * 
  * The string must be 3 comma seperated values in the range 0.0 - 1.0.
  *
- * @param {number} imput - The imput to check.
+ * @param {string} input - The input to check.
  * @returns {boolean} - Returns `true` if the input is valid, `false` otherwise.
  */
 export function isValidRgb(input) {
@@ -45,6 +45,14 @@ export function isValidRgb(input) {
     return false;
 }
 
+/**
+ * Checks if a given input string is acceptable as a 'rgb' color.
+ * 
+ * The string must be 3 comma seperated values in the range 0 - 255.
+ *
+ * @param {string} input - The input to check.
+ * @returns {boolean} - Returns `true` if the input is valid, `false` otherwise.
+ */
 export function isValidRgb255(input) {
     if(isNullOrEmpty(input)) {
         return false;

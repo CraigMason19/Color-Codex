@@ -70,23 +70,36 @@ export function isValidRgb255(input) {
     return false;
 }
 
+/**
+ * Checks if a given input string is acceptable as a hex color. 
+ * 
+ * The string must begin with a hash (#) and contain 6 characters in the range 0-9a-fA-F.
+ *
+ * @param {string} input - The input to check.
+ * @returns {boolean} - Returns `true` if the input is valid, `false` otherwise.
+ */
 export function isValidHex(input) { 
     if(isNullOrEmpty(input)) {
         return false;
     }
 
-    const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    const hexRegex = /^#([A-Fa-f0-9]{6})$/;
     return hexRegex.test(input);
 }
 
+/**
+ * Checks if a given input string is a valid web color. 
+ *
+ * @param {string} input - The input to check.
+ * @returns {boolean} - Returns `true` if the input is valid, `false` otherwise.
+ */
 export function isValidWeb(input) { 
     if(isNullOrEmpty(input)) {
         return false;
     }
 
     const s = new Option().style;
-    s.color = input;
+    s.color = input; // s.color will be '' if the input was not valid
   
-    // s.color will be '' if the input was not valid
-    return s.color == input.toLowerCase();
+    return s.color === input.toLowerCase();
 }

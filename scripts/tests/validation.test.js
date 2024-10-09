@@ -116,15 +116,41 @@ describe('isValidRgb255', () => {
 });
 
 describe('isValidHex', () => {
-        test('accepts correct HEX input', () => {
-        expect(isValidHex('#FFAABB')).toBe(true);
-        expect(isValidHex('#012ABC')).toBe(true);
+    test('validates begins with hash', () => {
+        expect(isValidHex('#123456')).toBe(true);
     });
-    test('rejects invalid HEX input', () => {
-        expect(isValidHex('FFFFFF')).toBe(false);
-        expect(isValidHex('#FF')).toBe(false);
-        expect(isValidHex('#GGGGGG')).toBe(false);
-        expect(isValidHex('')).toBe(false);
+    test('rejects not begins with hash', () => {
+        expect(isValidHex('123456')).toBe(false);
+    });
+    test('validates correct length', () => {
+        expect(isValidHex('#A1B2C3')).toBe(true);
+    });
+    test('rejects length too short', () => {
+        expect(isValidHex('#A1B2C')).toBe(false);
+    });
+    test('rejects length too long', () => {
+        expect(isValidHex('#A1B2C34')).toBe(false);
+    });
+    test('rejects empty string', () => {
+        expect(isValidHex(' ')).toBe(false);
+    });
+    test('rejects white space', () => {
+        expect(isValidHex('#A1 B2 C3')).toBe(false);
+    });
+    test('rejects letter out of range space', () => {
+        expect(isValidHex('#GG0000')).toBe(false);
+    });
+    test('rejects letter out of range space', () => {
+        expect(isValidHex('#GG0000')).toBe(false);
+    });
+    test('validates lowercase strings', () => {
+        expect(isValidHex('#abcdef')).toBe(true);
+    });
+    test('validates uppercase strings', () => {
+        expect(isValidHex('#ABCDEF')).toBe(true);
+    });
+    test('validates mixed case strings', () => {
+        expect(isValidHex('#AbCdEf')).toBe(true);
     });
 });
 

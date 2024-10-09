@@ -20,6 +20,14 @@ export function isInRange(value, inclusiveMin, inclusiveMax) {
     return value >= inclusiveMin && value <= inclusiveMax;
 }
 
+/**
+ * Checks if a given input string is acceptable as r g b number.
+ * 
+ * The string must be 3 comma seperated values in the range 0.0 - 1.0.
+ *
+ * @param {number} imput - The imput to check.
+ * @returns {boolean} - Returns `true` if the input is valid, `false` otherwise.
+ */
 export function isValidRgb(input) {
     if(isNullOrEmpty(input)) {
         return false;

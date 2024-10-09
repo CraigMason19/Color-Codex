@@ -1,9 +1,23 @@
+/**
+ * Checks if a string is null, undefined or empty (including whitespace).
+ *
+ * @param {string} input - The input to check.
+ * @returns {boolean} - Returns `true` if the input is null, undefined or empty, `false` otherwise.
+ */
 export function isNullOrEmpty(input) {
-    return input === null || input === undefined || input.trim() === "";
+    return !input || input.trim() === "";
 }
 
-export function isInRange(value, min, max) {
-    return value >= min && value <= max;
+/**
+ * Checks if a given value is within a specified range, inclusive of the minimum and maximum.
+ *
+ * @param {number} value - The value to check.
+ * @param {number} inclusiveMin - The minimum value of the range (inclusive).
+ * @param {number} inclusiveMax - The maximum value of the range (inclusive).
+ * @returns {boolean} - Returns `true` if the value is within the range, `false` otherwise.
+ */
+export function isInRange(value, inclusiveMin, inclusiveMax) {
+    return value >= inclusiveMin && value <= inclusiveMax;
 }
 
 export function isValidRgb(input) {

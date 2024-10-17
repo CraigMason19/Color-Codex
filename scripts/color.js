@@ -2,6 +2,10 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
+/**
+ * A Class representing a data structure for a color class containing a red, green & blue component.
+ * NOTE: All components are stroed in the range 0-255.
+ */
 export default class Color {
     constructor(r, g, b) {
         this.r = Math.floor(clamp(r, 0, 255));
@@ -23,10 +27,15 @@ export default class Color {
 
     static fromHex(hex) {
         hex = hex.replace('#', '');
-        let bigint = parseInt(hex, 16);
-        let r = (bigint >> 16) & 255;
-        let g = (bigint >> 8) & 255;
-        let b = bigint & 255;
+        const bigint = parseInt(hex, 16);
+
+        if(bigint === NaN) {
+            return new Color(0, 0, 0);
+        }
+
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
 
         return new Color(r, g, b);
     }

@@ -29,7 +29,7 @@ export default class Color {
         hex = hex.replace('#', '');
         const bigint = parseInt(hex, 16);
 
-        if(bigint === NaN) {
+        if(isNaN(bigint)) {
             return new Color(0, 0, 0);
         }
 

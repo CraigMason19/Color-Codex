@@ -54,12 +54,12 @@ export default class Color {
 
     toRgb() {
         let d = this.data.map(x => (x / 255).toFixed(2));
-        return `rgb(${d[0]}, ${d[1]}, ${d[2]})`;
+        return `${d[0]}, ${d[1]}, ${d[2]}`;
     }
 
     toRgb255() {
         let d = this.data;
-        return `rgb(${d[0]}, ${d[1]}, ${d[2]})`;
+        return `${d[0]}, ${d[1]}, ${d[2]}`;
     }
 
     toHex() {

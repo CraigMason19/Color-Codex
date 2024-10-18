@@ -81,13 +81,78 @@ describe('fromHex', () => {
 
 
 
+describe('toRgb', () => {
+    test('expect lower range to be "0.00, 0.00, 0.00"', () => {
+        const a = Color.fromRGB(0, 0, 0).toRgb();
+        const b = Color.fromRGB255(0, 0, 0).toRgb();
+        const c = Color.fromHex("#000000").toRgb();
+        const expected = "0.00, 0.00, 0.00";
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+    test('expect mid range to be "0.50, 0.50, 0.50"', () => {
+        const a = Color.fromRGB(.5, .5, .5).toRgb();
+        const b = Color.fromRGB255(127, 127, 127).toRgb();
+        const c = Color.fromHex("#7F7F7F").toRgb();
+        const expected = "0.50, 0.50, 0.50";
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+    test('expect upper range to be "1.00, 1.00, 1.00"', () => {
+        const a = Color.fromRGB(1, 1, 1).toRgb();
+        const b = Color.fromRGB255(255, 255, 255).toRgb();
+        const c = Color.fromHex("#FFFFFF").toRgb();
+        const expected = "1.00, 1.00, 1.00";
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+});
+
+describe('toRgb255', () => {
+    test('expect lower range to be "0, 0, 0"', () => {
+        const a = Color.fromRGB(0, 0, 0).toRgb255();
+        const b = Color.fromRGB255(0, 0, 0).toRgb255();
+        const c = Color.fromHex("#000000").toRgb255();
+        const expected = "0, 0, 0";
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+    test('expect mid range to be "127, 127, 127"', () => {
+        const a = Color.fromRGB(.5, .5, .5).toRgb255();
+        const b = Color.fromRGB255(127, 127, 127).toRgb255();
+        const c = Color.fromHex("#7F7F7F").toRgb255();
+        const expected = "127, 127, 127";
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+    test('expect upper range to be "255, 255, 255"', () => {
+        const a = Color.fromRGB(1, 1, 1).toRgb255();
+        const b = Color.fromRGB255(255, 255, 255).toRgb255();
+        const c = Color.fromHex("#FFFFFF").toRgb255();
+        const expected = "255, 255, 255";
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+});
 
 describe('toHex', () => {
     test('expect lower range to be #000000', () => {
         const a = Color.fromRGB(0, 0, 0).toHex();
         const b = Color.fromRGB255(0, 0, 0).toHex();
         const c = Color.fromHex("#000000").toHex();
-        const expected = "#000000"
+        const expected = "#000000";
 
         expect(a).toEqual(expected);
         expect(b).toEqual(expected);
@@ -97,7 +162,7 @@ describe('toHex', () => {
         const a = Color.fromRGB(0.5, 0.5, 0.5).toHex();
         const b = Color.fromRGB255(127, 127, 127).toHex();
         const c = Color.fromHex("#7F7F7F").toHex();
-        const expected = "#7F7F7F"
+        const expected = "#7F7F7F";
 
         expect(a).toEqual(expected);
         expect(b).toEqual(expected);
@@ -107,7 +172,7 @@ describe('toHex', () => {
         const a = Color.fromRGB(1, 1, 1).toHex();
         const b = Color.fromRGB255(255, 255, 255).toHex();
         const c = Color.fromHex("#FFFFFF").toHex();
-        const expected = "#FFFFFF"
+        const expected = "#FFFFFF";
 
         expect(a).toEqual(expected);
         expect(b).toEqual(expected);

@@ -1,5 +1,7 @@
 import Color from '../color.js';
 
+// TODO - constructor tests
+
 describe('color construction', () => {
     test('succesful construction', () => {
         let color = new Color(255, 0, 0);
@@ -71,5 +73,44 @@ describe('fromHex', () => {
     test('expect too short hex code to be valid', () => {
         let color = Color.fromHex('#A');
         expect(color.data).toEqual([0, 0, 10]);
+    });
+});
+
+
+// TODO - test web color, but that uses dom HTML elements
+
+
+
+
+describe('toHex', () => {
+    test('expect lower range to be #000000', () => {
+        const a = Color.fromRGB(0, 0, 0).toHex();
+        const b = Color.fromRGB255(0, 0, 0).toHex();
+        const c = Color.fromHex("#000000").toHex();
+        const expected = "#000000"
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+    test('expect mid range to be #7F7F7F', () => {
+        const a = Color.fromRGB(0.5, 0.5, 0.5).toHex();
+        const b = Color.fromRGB255(127, 127, 127).toHex();
+        const c = Color.fromHex("#7F7F7F").toHex();
+        const expected = "#7F7F7F"
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
+    });
+    test('expect upper range to be #FFFFFF', () => {
+        const a = Color.fromRGB(1, 1, 1).toHex();
+        const b = Color.fromRGB255(255, 255, 255).toHex();
+        const c = Color.fromHex("#FFFFFF").toHex();
+        const expected = "#FFFFFF"
+
+        expect(a).toEqual(expected);
+        expect(b).toEqual(expected);
+        expect(c).toEqual(expected);
     });
 });

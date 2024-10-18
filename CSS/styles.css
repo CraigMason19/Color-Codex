@@ -43,6 +43,7 @@ textarea {
     display: flex;
     align-items: center;
     margin: 0px !important;
+    gap: 5%;
 }
 
 

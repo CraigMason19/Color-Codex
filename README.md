@@ -7,9 +7,9 @@ JavaScript, CSS, HTML, Node.js
 [html2canvas](https://www.npmjs.com/package/html2canvas) (for saving the codex)
 
 - **Dev Dependencies**<br/>
-[Jest](https://www.npmjs.com/package/jest) (for testing)
-[Babel](https://babeljs.io/) (for transforming JavaScript code)
-[jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) (to simulate a DOM environment for testing browser-related code)
+[Jest](https://www.npmjs.com/package/jest) (for testing)<br/>
+[Babel](https://babeljs.io/) (for enabling modern JavaScript features like `import`/`export` in the testing environment)<br/>
+[jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) (to simulate a DOM environment for testing browser-related code)<br/>
 
 ## About
 
@@ -40,4 +40,4 @@ To run the test suite, use the following command:
 ```
 npm test
 ```
-This will run the tests using the JSDOM environment, which simulates a browser for testing web-based code, and generate a coverage report.
+This will run the tests using the JSDOM environment and generate a coverage report.

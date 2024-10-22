@@ -154,12 +154,20 @@ describe('isValidHex', () => {
     });
 });
 
-// describe('isValidWeb', () => {
-//     test('accepts correct web color input', () => {
-//         expect(isValidWeb('red')).toBe(true);
-//         expect(isValidWeb('cornflowerblue')).toBe(true);
-//     });
-//     test('rejects invalid web color input', () => {
-//         expect(isValidWeb('')).toBe(false);
-//     });
-// });
+describe('isValidWeb', () => {
+    test('returns true for valid web color', () => {
+        expect(isValidWeb('red')).toBe(true);
+        expect(isValidWeb('cornflowerblue')).toBe(true);
+        expect(isValidWeb('whitesmoke')).toBe(true);
+    });
+  
+    test('returns false for invalid web color', () => {
+        expect(isValidWeb('notacolor')).toBe(false);
+        expect(isValidWeb('invalid')).toBe(false);
+        expect(isValidWeb('error')).toBe(false);
+    });
+  
+    test('returns false for empty input', () => {
+        expect(isValidWeb('')).toBe(false); 
+    });
+});

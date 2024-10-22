@@ -76,10 +76,31 @@ describe('fromHex', () => {
     });
 });
 
+describe('fromWeb', () => {
+    beforeEach(() => {
+        // NOTE: JSDOM (the environment used by Jest for simulating the browser) does not fully support 
+        // CSS color parsing like a real browser. Specifically, JSDOM does not convert named web 
+        // colors (like 'cornflowerblue') into their corresponding RGB values.
+        //
+        // To properly test color conversion logic in our 'fromWeb' function, we mock 
+        // 'window.getComputedStyle' to return an expected RGB value when a valid web color is passed.
+        // This ensures our tests pass by simulating the behavior of a real browser.
+        window.getComputedStyle = jest.fn((element) => ({
+            color: element.style.color === 'cornflowerblue' ? 'rgb(100, 149, 237)' : ''
+        }));
+    });
 
-// TODO - test web color, but that uses dom HTML elements
+    test('expect valid strings to return data in the 0-255 range for RGB', () => {
+        expect(Color.fromWeb('cornflowerblue').data).toEqual([100, 149, 237]);
+        expect(Color.fromWeb('CornflowerBlue').data).toEqual([100, 149, 237]);
+    });
 
-
+    test('expect invalid strings color data to be [0, 0, 0]', () => {
+        expect(Color.fromWeb('error').data).toEqual([0, 0, 0]);
+        expect(Color.fromWeb('invalid').data).toEqual([0, 0, 0]);
+        expect(Color.fromWeb('').data).toEqual([0, 0, 0]);
+    });
+});
 
 describe('toRgb', () => {
     test('expect lower range to be "0.00, 0.00, 0.00"', () => {

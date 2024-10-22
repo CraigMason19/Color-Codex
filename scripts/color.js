@@ -4,7 +4,7 @@ function clamp(value, min, max) {
 
 /**
  * A Class representing a data structure for a color class containing a red, green & blue component.
- * NOTE: All components are stroed in the range 0-255.
+ * NOTE: All components are stored in the range 0-255.
  */
 export default class Color {
     constructor(r, g, b) {
@@ -42,13 +42,20 @@ export default class Color {
 
     static fromWeb(name) {
         let fakeDiv = document.createElement('div');
-        fakeDiv.style.color = name;
+        fakeDiv.style.color = name.toLowerCase();
         document.body.appendChild(fakeDiv);
-        let cs = window.getComputedStyle(fakeDiv).color;
+
+        // Get computed color from the div
+        let computedColor = window.getComputedStyle(fakeDiv).color;
         document.body.removeChild(fakeDiv);
-    
-        let rgb = cs.match(/\d+/g);
-        return new Color(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+ 
+        // Ensure the result is in 'rgb()' or 'rgba()' format
+        if (computedColor.startsWith('rgb')) {
+            let rgb = computedColor.match(/\d+/g);
+            return new Color(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+        }
+
+        return new Color(0, 0, 0);
     }
 
 

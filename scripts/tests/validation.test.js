@@ -1,5 +1,5 @@
-import { isNullOrEmpty, isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb } from '../validation.js';
-
+import { isNullOrEmpty, isInRange,
+         isValidRgb, isValidRgb255, isValidHex, isValidWeb } from '../validation.js';
 
 describe('isNullOrEmpty', () => {
     test('returns true for null', () => {

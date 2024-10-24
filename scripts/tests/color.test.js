@@ -1,7 +1,5 @@
 import { Color } from '../color.js';
 
-// TODO - constructor tests
-
 describe('color construction', () => {
     test('succesful construction', () => {
         let color = new Color(255, 0, 0);
@@ -30,6 +28,30 @@ describe('fromRGB255', () => {
     });
     test('clamp values out of lower range', () => {
         let color = Color.fromRGB255(0, -255, -4000);
+        expect(color.data).toEqual([0, 0, 0]);
+    });
+});
+
+describe('fromRGBString', () => {
+    test('correct color from rgb()', () => {
+        const color = Color.fromRGBString('rgb(50, 100, 150');
+        expect(color.data).toEqual([50, 100, 150]);
+    });
+    test('correct color from rgba()', () => {
+        const color = Color.fromRGBString('rgba(50, 100, 150');
+        expect(color.data).toEqual([50, 100, 150]);
+    });
+    test('negative out of range values are invalid and become black', () => {
+        const color = Color.fromRGBString('rgba(100, 100, -5)');
+        expect(color.data).toEqual([0, 0, 0]);
+    });
+    test('positive out of range values are clamped', () => {
+        const color = Color.fromRGBString('rgba(500, 300, 150)');
+        expect(color.data).toEqual([255, 255, 150]);
+    });
+
+    test('black color from invalid string', () => {
+        const color = Color.fromRGBString('This is a nonsense string');
         expect(color.data).toEqual([0, 0, 0]);
     });
 });

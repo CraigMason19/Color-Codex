@@ -1,7 +1,7 @@
 import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import showPopup from './popup.js';
-import Color from './color.js';
+import { Color } from './color.js';
 import CodexData from './codex-data.js';
 
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
@@ -492,7 +492,8 @@ function updateDataTextBox() {
     let cells = document.querySelectorAll('.grid-item');
     
     cells.forEach(item => {
-        codexTextData.value += `Grid Item: ${item.style.backgroundColor}\n`;
+        const c = Color.fromRGBString(item.style.backgroundColor);
+        codexTextData.value += `Grid Item: ${c.toHex()}\n`;
     });
 };
 

@@ -6,7 +6,7 @@ function clamp(value, min, max) {
  * A Class representing a data structure for a color class containing a red, green & blue component.
  * NOTE: All components are stored in the range 0-255.
  */
-export default class Color {
+export class Color {
     constructor(r, g, b) {
         this.r = Math.floor(clamp(r, 0, 255));
         this.g = Math.floor(clamp(g, 0, 255));
@@ -23,6 +23,15 @@ export default class Color {
 
     static fromRGB255(r, g, b) {
         return new Color(r, g, b);
+    }
+
+    static fromRGBString(colorStr) {
+        const match = colorStr.match(/rgba?\((\d+), (\d+), (\d+)/);
+        if (match) {
+            return new Color(parseInt(match[1]), parseInt(match[2]), parseInt(match[3]));
+        }
+    
+        return new Color(0, 0, 0);
     }
 
     static fromHex(hex) {

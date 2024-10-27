@@ -13,8 +13,6 @@ export class CodexData {
         this.options = defaultOptions;
 
         this.colors = [];
-
-        this.isValid = true;
     }
 
     static fromLines(lines) {
@@ -65,7 +63,6 @@ export class CodexData {
         //     codexData.isValid = true;
         // }
 
-        codexData.isValid = false;
-        return codexData;
+        return null;
     }
 }

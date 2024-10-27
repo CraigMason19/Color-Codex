@@ -238,9 +238,8 @@ modalCloseButton.addEventListener("click", function() {
 
 modalTextArea.addEventListener("input", function() {
     const cd = CodexData.fromLines(modalTextArea.value);
-    console.log(cd);
     
-    if(cd.isValid) {
+    if(cd !== null) {
         this.classList.remove('input-invalid');  
         modalRestoreButton.disabled = false;
     }

@@ -38,8 +38,15 @@ describe('invalid CodexData creation', () => {
         expect(cd).toBeNull();
     });
 
-    test('returns null for option value not a number', () => {
+    test('returns null for codex with too few colors', () => {
         const fileContent = readFileAsArray(path.join(TEST_CODICES_FOLDER, 'invalid-too-few-colors.txt'));
+        const cd = CodexData.fromLines(fileContent);
+
+        expect(cd).toBeNull();
+    });
+
+    test('returns null for codex with too many colors', () => {
+        const fileContent = readFileAsArray(path.join(TEST_CODICES_FOLDER, 'invalid-too-many-colors.txt'));
         const cd = CodexData.fromLines(fileContent);
 
         expect(cd).toBeNull();

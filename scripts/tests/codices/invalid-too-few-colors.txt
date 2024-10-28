@@ -1,0 +1,14 @@
+// Options
+columnCount: 3
+borderRadius: 15
+
+// Cell Colors
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)
+color: rgb(204, 204, 204)

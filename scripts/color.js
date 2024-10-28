@@ -1,6 +1,7 @@
-function clamp(value, min, max) {
+export function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
+
 
 /**
  * A Class representing a data structure for a color class containing a red, green & blue component.

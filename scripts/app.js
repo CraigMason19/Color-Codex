@@ -237,8 +237,8 @@ modalCloseButton.addEventListener("click", function() {
 });
 
 modalTextArea.addEventListener("input", function() {
-    const cd = CodexData.fromLines(modalTextArea.value);
-    
+    const cd = CodexData.fromLines(modalTextArea.value.split('\n'));
+
     if(cd !== null) {
         this.classList.remove('input-invalid');  
         modalRestoreButton.disabled = false;
@@ -472,19 +472,19 @@ document.addEventListener('keydown', function(event) {
 
 function updateDataTextBox() {
     codexTextData.value = "// Options\n";
-    codexTextData.value += `Column Count: ${currentOptions.columnCount}\n`;
-    codexTextData.value += `Cell Count: ${currentOptions.cellCount}\n`;
-    codexTextData.value += `Cell Size: ${currentOptions.cellSize}\n`;
-    codexTextData.value += `Gap Size: ${currentOptions.gapSize}\n`;
-    codexTextData.value += `Border Radius: ${currentOptions.borderRadius}\n`;
+    codexTextData.value += `columnCount: ${currentOptions.columnCount}\n`;
+    codexTextData.value += `cellCount: ${currentOptions.cellCount}\n`;
+    codexTextData.value += `cellSize: ${currentOptions.cellSize}\n`;
+    codexTextData.value += `gapSize: ${currentOptions.gapSize}\n`;
+    codexTextData.value += `borderRadius: ${currentOptions.borderRadius}\n`;
 
-    codexTextData.value += "\n// Grid Items\n";
+    codexTextData.value += "\n// Colors\n";
 
     let cells = document.querySelectorAll('.grid-item');
     
     cells.forEach(item => {
         const c = Color.fromRGBString(item.style.backgroundColor);
-        codexTextData.value += `Grid Item: ${c.toHex()}\n`;
+        codexTextData.value += `color: ${c.toHex()}\n`;
     });
 };
 

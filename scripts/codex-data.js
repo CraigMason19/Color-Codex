@@ -11,9 +11,9 @@ export const minimumOptions = {
 export const defaultOptions = {
     columnCount: 5,
     cellCount: 25,
+    cellSize: 80,
     gapSize: 10,
     borderRadius: 15,
-    cellSize: 80
 };
 
 export const maximumOptions = {
@@ -40,7 +40,7 @@ export class CodexData {
     }
 
     static fromLines(lines) {
-        lines = lines.map(line => line.toLowerCase()).filter(line => line != "");
+        lines = lines.filter(line => line != "");
 
         if (lines.length === 0) {
             return null;
@@ -54,28 +54,15 @@ export class CodexData {
             const result = parseLine(line);
 
             if (result.key.startsWith("//")) {
-                // ...
+                continue;
             }
 
             // Options
-            else if (typeof result.value === 'number') {
-                if (result.key === 'columncount') {
-                    cd.options.columnCount = clamp(result.value, minimumOptions.columnCount, maximumOptions.columnCount);
-                } 
-                else if (result.key === 'cellcount') {
-                    cd.options.cellCount = clamp(result.value, minimumOptions.cellCount, maximumOptions.cellCount);
-                } 
-                else if (result.key === 'cellsize') {
-                    cd.options.cellSize = clamp(result.value, minimumOptions.cellSize, maximumOptions.cellSize);
-                } 
-                else if (result.key === 'gapsize') {
-                    cd.options.gapSize = clamp(result.value, minimumOptions.gapSize, maximumOptions.gapSize);
-                }
-                else if (result.key === 'borderradius') {
-                    cd.options.borderRadius = clamp(result.value, minimumOptions.borderRadius, maximumOptions.borderRadius);
-                } 
+            if (typeof result.value === 'number' && result.key in defaultOptions) {
+                const min = minimumOptions[result.key];
+                const max = maximumOptions[result.key];
+                cd.options[result.key] = clamp(result.value, min, max);
             }
-
             // Colors
             else if (result.key === 'color') {
                 // Will be black if not a valid color

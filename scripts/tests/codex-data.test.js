@@ -1,4 +1,6 @@
-import { CodexData } from '../codex-data.js';
+import { CodexData,
+    minimumOptions, defaultOptions, maximumOptions
+} from '../codex-data.js';
 
 const fs = require('fs');
 const path = require('path');

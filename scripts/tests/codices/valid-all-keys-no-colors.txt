@@ -3,4 +3,4 @@ columnCount: 5
 cellCount: 25
 cellSize: 80
 gapSize: 10
-borderRadius: 15
+borderRadius: 25

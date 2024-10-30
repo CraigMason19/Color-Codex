@@ -18,6 +18,15 @@ const readFileAsArray = (filePath) => {
     return fileContent.split('\n').map(line => line.trim());
 };
 
+describe('constructor', () => {
+    test('constructor create default values and colours', () => {
+        const cd = new CodexData();
+
+        expect(cd.options).toEqual(defaultOptions);
+        expect(cd.colors.length).toBe(cd.options.cellCount);
+    });
+});
+
 describe('invalid CodexData creation', () => {
     test('returns null for an empty text file', () => {
         const fileContent = readFileAsArray(path.join(TEST_CODICES_FOLDER, 'invalid-empty.txt'));

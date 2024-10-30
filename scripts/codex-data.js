@@ -36,7 +36,7 @@ function parseLine(line) {
 export class CodexData {
     constructor() {
         this.options = defaultOptions;
-        this.colors = [];
+        this.colors = Array(this.options.cellCount).fill(DEFAULT_COLOR);
     }
 
     static fromLines(lines) {
@@ -49,6 +49,7 @@ export class CodexData {
         // console.log(lines);
 
         let cd = new CodexData(); 
+        let colours = [];
 
         for (const line of lines) {
             const result = parseLine(line);
@@ -66,7 +67,7 @@ export class CodexData {
             // Colors
             else if (result.key === 'color') {
                 // Will be black if not a valid color
-                cd.colors.push(Color.fromHex(result.value));
+                colours.push(Color.fromHex(result.value));
             }
             else {
                 return null;
@@ -75,12 +76,9 @@ export class CodexData {
 
         // console.log(cd);
 
-        // If colours are not present then just use default color
-        if (cd.colors.length === 0) {
-            cd.colors = Array(cd.options.cellCount).fill(DEFAULT_COLOR.toHex());
-        }
+        // If colours are not present, default color will be used
         // If colours are present, they must be the same length as the options
-        else if (cd.colors.length !== cd.options.cellCount) {
+        if (colours.length != 0 && colours.length !== cd.options.cellCount) {
             return null;
         }
 

@@ -48,8 +48,6 @@ export class CodexData {
             return null;
         }
 
-        // console.log(lines);
-
         let cd = new CodexData(); 
         let colors = [];
 
@@ -76,10 +74,9 @@ export class CodexData {
             }
         }
 
-        // console.log(cd);
-
-        // If colours are not present, default color will be used
-        // If colours are present, they must be the same length as the options
+        // If no colours are supplied, a default color will be used.
+        // If the amount of colours do not cell count provided, then it is invalid
+        // Otherwise we can use the colors provided
         if(colors.length === 0) {
             this.colors = Array.from({ length: cd.options.cellCount }, () => new Color(127, 127, 127));
         }

@@ -470,7 +470,7 @@ button ion-icon {
 
 /* region Modal */
 .modal {
-    visibility: block; /* Hidden by default */
+    visibility: hidden; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
     left: 0;

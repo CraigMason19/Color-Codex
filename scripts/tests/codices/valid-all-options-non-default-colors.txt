@@ -1,0 +1,17 @@
+// Options
+columnCount: 3
+cellCount: 9
+cellSize: 80
+gapSize: 10
+borderRadius: 15
+
+// Colors
+color: #FF00FF
+color: #6495ED
+color: #6495ED
+color: #FF00FF
+color: #FF00FF
+color: #FF00FF
+color: #FF00FF
+color: #FF00FF
+color: #6495ED

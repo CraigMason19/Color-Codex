@@ -78,4 +78,13 @@ describe('Valid CodexData creation', () => {
 
         expect(cd).not.toBeNull();
     });
+
+    test('returns a CodexData object with non default colours', () => {
+        const fileContent = readFileAsArray(path.join(TEST_CODICES_FOLDER, 'valid-all-options-non-default-colors.txt'));
+        const cd = CodexData.fromLines(fileContent);
+
+        expect(cd).not.toBeNull();
+        expect(cd.colors.length).toBe(9);
+        console.log(cd.colors[0]);
+    });
 });

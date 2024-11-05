@@ -2,17 +2,9 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import showPopup from './popup.js';
 import { Color } from './color.js';
-import { CodexData, defaultOptions } from './codex-data.js';
+import { CodexData } from './codex-data.js';
 
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
-
-const currentOptions = {
-    columnCount: defaultOptions.columnCount,
-    cellCount: defaultOptions.cellCount,
-    gapSize: defaultOptions.gapSize,
-    borderRadius: defaultOptions.borderRadius,
-    cellSize: defaultOptions.cellSize
-};
 
 const styles = getComputedStyle(document.body);
 const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-default'));
@@ -45,6 +37,8 @@ let currentColor = null;
 let lastMouseX = 0;
 let lastMouseY = 0;
 
+let codexData = new CodexData();
+
 
 
 // DEBUG
@@ -59,17 +53,19 @@ document.addEventListener('keydown', function(event) {
 // #region Options
 
 function initOptions() {
-    document.getElementById('size-column-input').value = defaultOptions.columnCount;
-    document.getElementById('cell-count-input').value = defaultOptions.cellCount;
-    document.getElementById('cell-gap-input').value = defaultOptions.gapSize;
-    document.getElementById('cell-size-input').value = defaultOptions.cellSize;
-    document.getElementById('cell-border-radius-input').value = defaultOptions.borderRadius;
+    document.getElementById('size-column-input').value = codexData.options.columnCount;
+    document.getElementById('cell-count-input').value = codexData.options.cellCount;
+    document.getElementById('cell-gap-input').value = codexData.options.gapSize;
+    document.getElementById('cell-size-input').value = codexData.options.cellSize;
+    document.getElementById('cell-border-radius-input').value = codexData.options.borderRadius;
 
-    setGridContainerWidth(defaultOptions.columnCount);
-    createCells(defaultOptions.cellCount);
-    setCellSize(defaultOptions.cellSize);
-    setGapSize(defaultOptions.defaultGapSize);
-    setBorderRadius(defaultOptions.borderRadius);
+    setGridContainerWidth(codexData.options.columnCount);
+    createCells(codexData.options.cellCount);
+    setCellSize(codexData.options.cellSize);
+    setGapSize(codexData.options.defaultGapSize);
+    setBorderRadius(codexData.options.borderRadius);
+
+    updateDataTextBox();
 }
 
 // Set the max amount of columnCount, everything else will be added below
@@ -120,9 +116,9 @@ function processOptions(input) {
     switch (input.id) {
         case "size-column-input":
             if(!isNaN(value) && isInRange(value, 1, 64)) {
-                currentOptions.columnCount = value;
+                codexData.options.columnCount = value;
 
-                setGridContainerWidth(currentOptions.columnCount);
+                setGridContainerWidth(codexData.options.columnCount);
                 isValidInput = true;
             }
 
@@ -130,11 +126,11 @@ function processOptions(input) {
 
         case "cell-count-input": 
             if(!isNaN(value) && isInRange(value, 1, 100)) {
-                currentOptions.cellCount = value;
+                codexData.options.cellCount = value;
 
-                createCells(currentOptions.cellCount);
-                setCellSize(currentOptions.cellSize);
-                setBorderRadius(currentOptions.borderRadius);
+                createCells(codexData.options.cellCount);
+                setCellSize(codexData.options.cellSize);
+                setBorderRadius(codexData.options.borderRadius);
                 isValidInput = true;
             }
 
@@ -142,9 +138,9 @@ function processOptions(input) {
 
         case "cell-size-input":
             if(!isNaN(value) && isInRange(value, 1, 250)) {
-                currentOptions.cellSize = value;
+                codexData.options.cellSize = value;
 
-                setCellSize(currentOptions.cellSize);
+                setCellSize(codexData.options.cellSize);
                 isValidInput = true;
             }
 
@@ -152,9 +148,9 @@ function processOptions(input) {
 
         case "cell-gap-input":
             if(!isNaN(value) && isInRange(value, 0, 64)) {
-                currentOptions.gapSize = value;
+                codexData.options.gapSize = value;
 
-                setGapSize(currentOptions.gapSize);
+                setGapSize(codexData.options.gapSize);
                 isValidInput = true;
             }
 
@@ -162,9 +158,9 @@ function processOptions(input) {
 
         case "cell-border-radius-input":
             if(!isNaN(value) && isInRange(value, 0, 100)) {
-                currentOptions.borderRadius = value;
+                codexData.options.borderRadius = value;
 
-                setBorderRadius(currentOptions.borderRadius);
+                setBorderRadius(codexData.options.borderRadius);
                 isValidInput = true;
             }
 
@@ -192,14 +188,13 @@ function processOptions(input) {
 // #region Actions
 
 restoreDefaultsButton.addEventListener("click", function() {
+    codexData = new CodexData();
     initOptions();
 });
 
 resetButton.addEventListener("click", function() {
-    const cells = document.getElementsByClassName('grid-item');
-
-    for(let cell of cells) {
-        cell.style.backgroundColor = defaultCellColor;
+    for(let cell of document.getElementsByClassName('grid-item')) {
+        cell.style.backgroundColor = defaultCellColor.toHex();
     }
 });
 
@@ -232,14 +227,10 @@ function initModal() {
     modal.style.visibility = "visible";
 }
 
-modalCloseButton.addEventListener("click", function() {
-    modal.style.visibility = "hidden";
-});
-
 modalTextArea.addEventListener("input", function() {
-    const cd = CodexData.fromLines(modalTextArea.value.split('\n'));
+    codexData = CodexData.fromLines(modalTextArea.value.split('\n'));
 
-    if(cd !== null) {
+    if(codexData !== null) {
         this.classList.remove('input-invalid');  
         modalRestoreButton.disabled = false;
     }
@@ -247,6 +238,22 @@ modalTextArea.addEventListener("input", function() {
         this.classList.add('input-invalid');   
         modalRestoreButton.disabled = true; 
     }
+});
+
+modalRestoreButton.addEventListener("click", function() {
+    modal.style.visibility = "hidden";
+    initOptions();
+
+    // Restore colors
+    let cells = document.getElementsByClassName('grid-item');
+
+    for(let i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundColor = codexData.colors[i].toHex();
+    }
+});
+
+modalCloseButton.addEventListener("click", function() {
+    modal.style.visibility = "hidden";
 });
 // #endregion
 
@@ -261,7 +268,7 @@ modalTextArea.addEventListener("input", function() {
 // - Mouse enter / leave to focus / lose focus
 function createCells(cellCount) {
     gridContainer.innerHTML = '';  // This removes all child elements
-    setGapSize(currentOptions.gapSize);
+    setGapSize(codexData.options.gapSize);
 
     for (let i = 0; i < cellCount; i++) {
         const gridItem = document.createElement('div');
@@ -468,26 +475,21 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-
-
 function updateDataTextBox() {
     codexTextData.value = "// Options\n";
-    codexTextData.value += `columnCount: ${currentOptions.columnCount}\n`;
-    codexTextData.value += `cellCount: ${currentOptions.cellCount}\n`;
-    codexTextData.value += `cellSize: ${currentOptions.cellSize}\n`;
-    codexTextData.value += `gapSize: ${currentOptions.gapSize}\n`;
-    codexTextData.value += `borderRadius: ${currentOptions.borderRadius}\n`;
+    codexTextData.value += `columnCount: ${codexData.options.columnCount}\n`;
+    codexTextData.value += `cellCount: ${codexData.options.cellCount}\n`;
+    codexTextData.value += `cellSize: ${codexData.options.cellSize}\n`;
+    codexTextData.value += `gapSize: ${codexData.options.gapSize}\n`;
+    codexTextData.value += `borderRadius: ${codexData.options.borderRadius}\n`;
 
     codexTextData.value += "\n// Colors\n";
 
-    let cells = document.querySelectorAll('.grid-item');
-    
-    cells.forEach(item => {
+    for(let item of document.querySelectorAll('.grid-item')) {
         const c = Color.fromRGBString(item.style.backgroundColor);
-        codexTextData.value += `color: ${c.toHex()}\n`;
-    });
+        codexTextData.value += `color: ${c.toHex()}\n`;    
+    }
 };
 
 
 initOptions();
-updateDataTextBox();

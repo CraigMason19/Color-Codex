@@ -1,8 +1,8 @@
 import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
-import showPopup from './popup.js';
-import Color from './color.js';
-import CodexData from './codex-data.js';
+import { showPopup } from './popup.js';
+import { Color } from './color.js';
+import { CodexData } from './codex-data.js';
 
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 

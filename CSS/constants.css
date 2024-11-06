@@ -1,22 +1,29 @@
 :root {
-    --debug-outline: 2px solid darkcyan;
+    /* TODO remove */
+    --debug-outline: 2px solid darkcyan; 
+    
+    --border-radius-button: 10px;
+    --border-radius: 5px;
 
-    --color-theme: #402E7A;
-    --color-b: #4C3BCF;
-    --color-c: #4B70F5;
+    --box-shadow: 2px 0 5px var(--color-drop-shadow);
 
     --color-theme: #224579;
     --color-b: #166088;
     --color-c: #4a6fa5;
-
-    --color-selection: #3DC2EC;
-    --color-cell-default: #cccccc;
+    --color-selected: #3DC2EC;
+    --color-disabled: #cccccc;
     --color-background: white;
+    --color-cell-default: #cccccc;
     --color-drop-shadow: rgba(0, 0, 0, 0.3);
 
-    --border-radius-button: 10px;
-    --font-size: 1.5rem;
-   
+    --color-font: black;
+    --color-font-selected: white;
+
+    --height-button: 2.4rem;
+
+    --size-font: 1rem;
+    --size-icon: 1.5rem;
+
     --transition-duration: 0.3s;
     --transition-effect: ease-in-out;
 }

@@ -6,6 +6,8 @@ import { CodexData } from './codex-data.js';
 
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
+
+// Constant element references
 const styles = getComputedStyle(document.body);
 const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-default'));
 const themeColor = Color.fromHex(styles.getPropertyValue('--color-theme'));
@@ -31,6 +33,7 @@ const restoreCodexButton = document.getElementById('restore-codex-button');
 const codexTextData = document.getElementById('codex-text-data');
 
 
+// Dynamic variables
 let currentGridItem = null;
 let currentColor = null;
 
@@ -38,15 +41,6 @@ let lastMouseX = 0;
 let lastMouseY = 0;
 
 let codexData = new CodexData();
-
-
-
-// DEBUG
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'd' || event.key === 'D') {
-        document.body.classList.toggle('show-borders');
-    }
-});
 
 
 
@@ -183,6 +177,22 @@ function processOptions(input) {
     }
 }
 
+function updateDataTextBox() {
+    codexTextData.value = "// Options\n";
+    codexTextData.value += `columnCount: ${codexData.options.columnCount}\n`;
+    codexTextData.value += `cellCount: ${codexData.options.cellCount}\n`;
+    codexTextData.value += `cellSize: ${codexData.options.cellSize}\n`;
+    codexTextData.value += `gapSize: ${codexData.options.gapSize}\n`;
+    codexTextData.value += `borderRadius: ${codexData.options.borderRadius}\n`;
+
+    codexTextData.value += "\n// Colors\n";
+
+    for(let item of document.querySelectorAll('.grid-item')) {
+        const c = Color.fromRGBString(item.style.backgroundColor);
+        codexTextData.value += `color: ${c.toHex()}\n`;    
+    }
+};
+
 // #endregion
 
 // #region Actions
@@ -220,6 +230,7 @@ restoreCodexButton.addEventListener("click", function() {
 
 
 // #region Modal
+
 function initModal() {
     modalRestoreButton.disabled = true;
     modalTextArea.value = "";
@@ -255,9 +266,85 @@ modalRestoreButton.addEventListener("click", function() {
 modalCloseButton.addEventListener("click", function() {
     modal.style.visibility = "hidden";
 });
+
+// #endregion
+
+// #region Context Menu
+
+function showInputContextMenu(x, y) {
+    contextMenuLeft.style.display = 'block';
+    contextMenuRight.style.display = 'none';
+    contextMenuLeft.style.left = `${x}px`;
+    contextMenuLeft.style.top = `${y}px`;
+}
+
+function showCopyContextMenu(x, y) {
+    contextMenuRight.style.display = 'block';
+    contextMenuLeft.style.display = 'none';
+    contextMenuRight.style.left = `${x}px`;
+    contextMenuRight.style.top = `${y}px`;
+
+    let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
+    currentColor = Color.fromRGB255(...rgbValues);
+
+    document.getElementById('color-copy-rgb').querySelector('p').innerHTML = currentColor.toRgb();
+    document.getElementById('color-copy-rgb255').querySelector('p').innerHTML = currentColor.toRgb255();
+    document.getElementById('color-copy-hex').querySelector('p').innerHTML = currentColor.toHex();
+}
+
+function closeContextMenus() {
+    contextMenuLeft.style.display = 'none';
+    contextMenuRight.style.display = 'none';
+}
+
+document.querySelectorAll('.color-copy-container').forEach(function(colorCopyContainer) {
+    colorCopyContainer.addEventListener('click', function() {
+
+        if (currentGridItem) {
+            let copyString = null;
+
+            switch (colorCopyContainer.id) {
+                case "color-copy-rgb":
+                    copyString = currentColor.toRgb();
+                    break;
+
+                case "color-copy-rgb255":
+                    copyString = currentColor.toRgb255();
+                    break;
+
+                case "color-copy-hex":
+                    copyString = currentColor.toHex();
+                    break;
+
+                default:
+                    break;
+            } 
+
+            navigator.clipboard.writeText(copyString);
+            contextMenuRight.style.display = 'none';
+            
+            showPopup("Color Copied", copyString, currentColor); 
+        }
+    });
+});
+
+//  Change color by enter or input validation
+document.querySelectorAll('.color-input input').forEach(input => {
+    input.addEventListener('input', function(event) {
+        changeGridItemColor(input);
+    });
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            changeGridItemColor(input);
+        }
+    });
+});
+
 // #endregion
 
 
+// #region App
 
 // Dynamically create grid items
 // Multiple event listeners
@@ -383,85 +470,6 @@ function changeGridItemColor(input) {
     }
 }
 
-// #region Context Menu
-
-function showInputContextMenu(x, y) {
-    contextMenuLeft.style.display = 'block';
-    contextMenuRight.style.display = 'none';
-    contextMenuLeft.style.left = `${x}px`;
-    contextMenuLeft.style.top = `${y}px`;
-}
-
-function showCopyContextMenu(x, y) {
-    contextMenuRight.style.display = 'block';
-    contextMenuLeft.style.display = 'none';
-    contextMenuRight.style.left = `${x}px`;
-    contextMenuRight.style.top = `${y}px`;
-
-    let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
-    currentColor = Color.fromRGB255(...rgbValues);
-
-    document.getElementById('color-copy-rgb').querySelector('p').innerHTML = currentColor.toRgb();
-    document.getElementById('color-copy-rgb255').querySelector('p').innerHTML = currentColor.toRgb255();
-    document.getElementById('color-copy-hex').querySelector('p').innerHTML = currentColor.toHex();
-}
-
-function closeContextMenus() {
-    contextMenuLeft.style.display = 'none';
-    contextMenuRight.style.display = 'none';
-}
-
-// #endregion
-
-
-
-
-
-
-//  Change color by enter or input validation
-document.querySelectorAll('.color-input input').forEach(input => {
-    input.addEventListener('input', function(event) {
-        changeGridItemColor(input);
-    });
-
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            changeGridItemColor(input);
-        }
-    });
-});
-
-document.querySelectorAll('.color-copy-container').forEach(function(colorCopyContainer) {
-    colorCopyContainer.addEventListener('click', function() {
-
-        if (currentGridItem) {
-            let copyString = null;
-
-            switch (colorCopyContainer.id) {
-                case "color-copy-rgb":
-                    copyString = currentColor.toRgb();
-                    break;
-
-                case "color-copy-rgb255":
-                    copyString = currentColor.toRgb255();
-                    break;
-
-                case "color-copy-hex":
-                    copyString = currentColor.toHex();
-                    break;
-
-                default:
-                    break;
-            } 
-
-            navigator.clipboard.writeText(copyString);
-            contextMenuRight.style.display = 'none';
-            
-            showPopup("Color Copied", copyString, currentColor); 
-        }
-    });
-});
-
 // Hide both context menus when the click target is not within either context menu
 document.addEventListener('click', function(e) {
     if (!contextMenuLeft.contains(e.target) && !contextMenuRight.contains(e.target)) {
@@ -475,21 +483,16 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-function updateDataTextBox() {
-    codexTextData.value = "// Options\n";
-    codexTextData.value += `columnCount: ${codexData.options.columnCount}\n`;
-    codexTextData.value += `cellCount: ${codexData.options.cellCount}\n`;
-    codexTextData.value += `cellSize: ${codexData.options.cellSize}\n`;
-    codexTextData.value += `gapSize: ${codexData.options.gapSize}\n`;
-    codexTextData.value += `borderRadius: ${codexData.options.borderRadius}\n`;
-
-    codexTextData.value += "\n// Colors\n";
-
-    for(let item of document.querySelectorAll('.grid-item')) {
-        const c = Color.fromRGBString(item.style.backgroundColor);
-        codexTextData.value += `color: ${c.toHex()}\n`;    
-    }
-};
-
+// TODO - remove
+function debug() {
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'd' || event.key === 'D') {
+            document.body.classList.toggle('show-borders');
+        }
+    });
+}
 
 initOptions();
+debug();
+
+// #endregion

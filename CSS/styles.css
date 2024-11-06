@@ -1,13 +1,16 @@
 @import './constants.css';
 
+/* CSS reset 
+   Sets a default for all elements in the CSS.
+   This ignores browser defaults to ensure a consistent baseline across different browsers.
+*/
 * {
-    /* CSS reset */
     margin: 0;
     padding: 0;
-
     font-family: 'Oswald', sans-serif;
 }
 
+/* debug option to show all borders for ALL elements */
 .show-borders * {
     outline: var(--debug-outline);
 }
@@ -15,7 +18,6 @@
 body {
     display: flex;
     height: 100vh;
-    margin: 0;
     background-color: var(--color-background);
 }
 
@@ -24,7 +26,7 @@ textarea {
 }
 
 
-
+/* #region SidePanel */
 
 .side-panel {
     width: 20%;  
@@ -57,7 +59,7 @@ textarea {
     display: flex;
 }
 
-
+/* #endregion */
 
 
 
@@ -104,7 +106,7 @@ textarea {
     background-color: lightgray;
 }
 
-
+ 
 button {
     width: 100%;
     height: 40px;
@@ -134,34 +136,7 @@ button ion-icon {
 }
 
 
-
-
- 
- 
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* #region Grid */
 
 .grid-container-wrapper {
     display: flex;
@@ -195,31 +170,13 @@ button ion-icon {
     /* outline-offset: 0px; */
 
     z-index: 1;
-
 }
 
+/* #endregion */
 
 
+/* #region ContextMenu */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* region context menu */
 .context-menu {
     position: absolute;
 
@@ -269,31 +226,7 @@ button ion-icon {
     padding: 5px 10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* #endregion */
 
 
 
@@ -356,19 +289,6 @@ button ion-icon {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* .color-details p {
     padding: 10px;
     border-radius: 5px;
@@ -411,19 +331,7 @@ button ion-icon {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* region Popup */
+/* #region Popup */
 
 .popup {
     position: fixed;
@@ -458,17 +366,12 @@ button ion-icon {
     font-weight: bold;
     margin-bottom: 1rem;
 }
-/* endregion */
+
+/* #endregion */
 
 
 
-
-
-
-
-
-
-/* region Modal */
+/* #region Modal */
 .modal {
     visibility: hidden; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -521,4 +424,4 @@ button ion-icon {
     display: flex;
 }
 
-/* endregion */
+/* #endregion */

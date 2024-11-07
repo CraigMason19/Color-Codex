@@ -1,5 +1,4 @@
 :root {
-    /* TODO remove */
     --debug-outline: 2px solid darkcyan; 
     
     --border-radius-button: 10px;
@@ -24,17 +23,26 @@
 
     --height-button: 2.4rem;
     --height-modal: 60%;
-    --height-modal-textarea: 85%;
 
+    --min-width-popup: 15%;
+
+    --padding-popup: 15px;
+    --padding-popup-text: 5px;
     --padding-modal: 10px;
 
     --size-font: 1rem;
     --size-icon: 1.5rem;
 
     --top-modal: 15%;
+    --top-popup: 10%;
     
     --transition-duration: 0.3s;
     --transition-effect: ease-in-out;
+    --transition-show-hide: opacity 0.5s ease-in-out;
 
     --width-modal: 40%;
+    --width-side-panel: 20%;
+
+    --z-index-modal: 1000;
+    --z-index-popup: 1500;
 }

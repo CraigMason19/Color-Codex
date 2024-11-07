@@ -27,6 +27,7 @@ textarea {
     border-radius: var(--border-radius);
     font-size: var(--size-font);
     resize: none;
+    height: 100%;
 }
 
 ion-icon {
@@ -69,49 +70,6 @@ button ion-icon {
 
 /* #endregion */
 
-/* #region Modal */
-
-/* Makes a dark overlay across the entire screen 
-   z-index has a huge value to ensure that it is on top
-*/
-.modal {
-    background-color: var(--color-background-modal);
-    height: 100%;  
-    position: fixed;
-    visibility: block;
-    width: 100%;
-    z-index: 1000;
-}
-  
-.modal-content {
-    background-color: var(--color-theme);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-modal);
-    height: var(--height-modal);
-    left: 50%;
-    padding: var(--padding-modal);
-    position: absolute;
-    top: var(--top-modal);
-    transform: translate(-50%, 0%);
-    width: var(--width-modal);
-}
-
-.modal p {
-    color: var(--color-font-selected);
-}
-
-.modal textarea {
-    height: var(--height-modal-textarea);
-}
-
-.modal-buttons {
-    display: flex;
-}
-
-/* #endregion */
 
 
 
@@ -130,25 +88,25 @@ button ion-icon {
     justify-content: space-start;
     padding-top: 0px;
     padding: 15px;
-    width: 20%;  
+    width: var(--width-side-panel);  
 }
 
 .header {
-    display: flex;
     align-items: center;
-    margin: 0px !important;
+    display: flex;
     gap: 5%;
+    margin: 0px !important;
 }
 
 
 .header ion-icon {
-    font-size: 4rem !important;
     color: white;
+    font-size: 4rem !important;
 }
 
 .side-panel-item {
-    margin: 10px 0px;
     display: flex;
+    margin: 10px 0px;
 }
 
 
@@ -229,7 +187,7 @@ button ion-icon {
 }
 
 .grid-item:hover {
-    outline: 4px solid var(--color-theme);
+    outline: 4px solid var(--color-selected);
     /* outline-offset: 0px; */
 
     z-index: 1;
@@ -242,30 +200,71 @@ button ion-icon {
 
 
 
+/* #region Modal */
+
+/* Makes a dark overlay across the entire screen 
+   z-index has a huge value to ensure that it is on top
+*/
+.modal {
+    background-color: var(--color-background-modal);
+    height: 100%;  
+    position: fixed;
+    visibility: hidden;
+    width: 100%;
+    z-index: var(--z-index-modal);
+}
+  
+.modal-content {
+    background-color: var(--color-theme);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-modal);
+    height: var(--height-modal);
+    left: 50%;
+    padding: var(--padding-modal);
+    position: absolute;
+    top: var(--top-modal);
+    transform: translate(-50%, 0%);
+    width: var(--width-modal);
+}
+
+.modal p {
+    color: var(--color-font-selected);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: var(--gap-modal);
+}
+
+/* #endregion */
 
 /* #region Popup */
 
 .popup {
-    border-radius: 5px;
-    color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    color: var(--color-font-selected);
     left: calc(60%); /* Center horizontally relative to the remaining 80% of the screen (considering 20% sidebar) */
-    min-width: 15%;
+    min-width: var(--min-width-popup);
     opacity: 0;
-    padding: 10px;
+    padding: var(--padding-popup);
     position: fixed;
     text-align: center;
-    top: 10%;   
+    top: var(--top-popup);   
     transform: translate(-50%, -50%);
-    transition: opacity 0.5s ease-in-out;
+    transition: var(--transition-show-hide);
     visibility: hidden;
     width: fit-content; 
-    z-index: 1001;
+    z-index: var(--z-index-popup); /* Show over even the modal  */
 }
 
 .popup p {
     background-color: var(--color-theme);
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: var(--border-radius);
+    padding: var(--padding-popup-text);
 }
 
 .popup.show {
@@ -280,7 +279,15 @@ button ion-icon {
 
 /* #endregion */
 
+ 
 
+
+
+
+
+
+
+/* TODO */
 
 /* #region ContextMenu */
 

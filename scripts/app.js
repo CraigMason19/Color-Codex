@@ -483,7 +483,6 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-// TODO - remove
 function debug() {
     document.addEventListener('keydown', function(event) {
         if (event.key === 'd' || event.key === 'D') {

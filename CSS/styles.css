@@ -33,6 +33,10 @@ ion-icon {
     font-size: var(--size-icon);
 }
 
+p {
+    text-align: center;
+}
+
 /* #endregion */
 
 /* #region Buttons */
@@ -61,6 +65,50 @@ button:disabled {
 
 button ion-icon {
     font-size: var(--size-icon);
+}
+
+/* #endregion */
+
+/* #region Modal */
+
+/* Makes a dark overlay across the entire screen 
+   z-index has a huge value to ensure that it is on top
+*/
+.modal {
+    background-color: var(--color-background-modal);
+    height: 100%;  
+    position: fixed;
+    visibility: block;
+    width: 100%;
+    z-index: 1000;
+}
+  
+.modal-content {
+    background-color: var(--color-theme);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-modal);
+    height: var(--height-modal);
+    left: 50%;
+    padding: var(--padding-modal);
+    position: absolute;
+    top: var(--top-modal);
+    transform: translate(-50%, 0%);
+    width: var(--width-modal);
+}
+
+.modal p {
+    color: var(--color-font-selected);
+}
+
+.modal textarea {
+    height: var(--height-modal-textarea);
+}
+
+.modal-buttons {
+    display: flex;
 }
 
 /* #endregion */
@@ -232,58 +280,6 @@ button ion-icon {
 
 /* #endregion */
 
-
-/* #region Modal */
-.modal {
-    visibility: hidden; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    transition: opacity 0.5s ease-in-out;
-
-    color: white;
-}
-  
-.modal-content {
-    position: absolute; /* Positioning the content */
-    top: 15%; /* Position from top */
-    left: 50%; /* Position from left */
-    transform: translate(-50%, 0%);
-    background-color: white; /* White background */
-    padding: 10px; /* Some padding */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for effect */
-
-    width: 40%;
-    height: 60%;
-
-    background-color: var(--color-theme);
-
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    gap: 10px; /* Adjust the gap as needed */
-}
-
-.modal p {
-    text-align: center;
-}
-
-.modal textarea {
-    height: 85%;
-}
-
-.modal-buttons {
-    display: flex;
-}
-
-/* #endregion */
 
 
 /* #region ContextMenu */

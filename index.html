@@ -9,8 +9,8 @@
 </head>
 
 
-
 <body>
+    <!-- Side Panel -->
     <div class="side-panel">
         <div class="header">
             <ion-icon name="color-palette"></ion-icon>
@@ -76,7 +76,12 @@
         </details>
 
         <textarea id="codex-text-data" class="side-panel-item" readonly></textarea>
+    </div>
 
+
+    <!-- Grid -->
+    <div class="grid-container-wrapper">
+        <div class="grid-container"></div>
     </div>
 
 
@@ -86,10 +91,6 @@
         <p id="popup-content" class="popup-content"></p>
     </div>
 
-
-    <div class="grid-container-wrapper">
-        <div class="grid-container"></div>
-    </div>
 
     <!-- Modal -->
     <div id="modal" class="modal">
@@ -110,6 +111,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Context menu left -->
     <div class="context-menu context-menu-left" id="context-menu-left">
@@ -133,6 +135,7 @@
 
     </div>
 
+
     <!-- Context menu right -->
     <div class="context-menu context-menu-right" id="context-menu-right">
         <div class="color-copy-container" id="color-copy-rgb">
@@ -148,8 +151,6 @@
             <ion-icon name="copy-outline"></ion-icon>
         </div>
     </div>
-
-
 
 
     <script type="module" src="scripts/app.js"></script>

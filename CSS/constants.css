@@ -13,17 +13,28 @@
     --color-selected: #3DC2EC;
     --color-disabled: #cccccc;
     --color-background: white;
+    --color-background-modal: rgba(0, 0, 0, 0.2);
     --color-cell-default: #cccccc;
     --color-drop-shadow: rgba(0, 0, 0, 0.3);
 
     --color-font: black;
     --color-font-selected: white;
 
+    --gap-modal: 10px;
+
     --height-button: 2.4rem;
+    --height-modal: 60%;
+    --height-modal-textarea: 85%;
+
+    --padding-modal: 10px;
 
     --size-font: 1rem;
     --size-icon: 1.5rem;
 
+    --top-modal: 15%;
+    
     --transition-duration: 0.3s;
     --transition-effect: ease-in-out;
+
+    --width-modal: 40%;
 }

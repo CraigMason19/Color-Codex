@@ -29,6 +29,10 @@ textarea {
     resize: none;
 }
 
+ion-icon {
+    font-size: var(--size-icon);
+}
+
 /* #endregion */
 
 /* #region Buttons */
@@ -395,15 +399,6 @@ button ion-icon {
 
 /* #region color */
 
-/* .color-details p {
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.color-details p:hover {
-    background-color: var( --color-selected);
-} */
-
 
 
 
@@ -424,14 +419,7 @@ button ion-icon {
     cursor: pointer;
 }
 
-/* .color-copy-container p {
 
-} */
-
-.color-copy-container ion-icon {
-    font-size: var(--font-size);
-    margin-right: 5px;
-}
 
 /* #endregion */
 

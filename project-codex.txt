@@ -1,0 +1,19 @@
+// The codex used to determine the colours for this project
+
+// Options
+columnCount: 3
+cellCount: 9
+cellSize: 100
+gapSize: 10
+borderRadius: 15
+
+// Colors
+color: #224579
+color: #000000
+color: #CCCCCC
+color: #166088
+color: #FFFFFF
+color: #CCCCCC
+color: #4A6FA5
+color: #3DC2EC
+color: #CCCCCC

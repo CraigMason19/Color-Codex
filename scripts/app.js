@@ -12,8 +12,6 @@ const styles = getComputedStyle(document.body);
 const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-default'));
 const themeColor = Color.fromHex(styles.getPropertyValue('--color-theme'));
 
-const popup = document.getElementById('popup');
-
 const modal = document.getElementById('modal');
 const modalCloseButton = document.getElementById('modal-close-button');
 const modalRestoreButton = document.getElementById('modal-restore-button');
@@ -235,7 +233,7 @@ function initModal() {
     modalRestoreButton.disabled = true;
     modalTextArea.value = "";
 
-    modal.style.visibility = "visible";
+    modal.classList.add('show');
 }
 
 modalTextArea.addEventListener("input", function() {
@@ -252,7 +250,8 @@ modalTextArea.addEventListener("input", function() {
 });
 
 modalRestoreButton.addEventListener("click", function() {
-    modal.style.visibility = "hidden";
+    modal.classList.remove('show');
+
     initOptions();
 
     // Restore colors
@@ -264,7 +263,7 @@ modalRestoreButton.addEventListener("click", function() {
 });
 
 modalCloseButton.addEventListener("click", function() {
-    modal.style.visibility = "hidden";
+    modal.classList.remove('show');
 });
 
 // #endregion

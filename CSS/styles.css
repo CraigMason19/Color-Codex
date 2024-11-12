@@ -38,6 +38,11 @@ p {
     text-align: center;
 }
 
+.show {
+    opacity: 1 !important;
+    visibility: visible !important; 
+}
+
 /* #endregion */
 
 /* #region Buttons */
@@ -208,7 +213,9 @@ button ion-icon {
 .modal {
     background-color: var(--color-background-modal);
     height: 100%;  
+    opacity: 0;
     position: fixed;
+    transition: var(--transition-show-hide);
     visibility: hidden;
     width: 100%;
     z-index: var(--z-index-modal);
@@ -265,11 +272,6 @@ button ion-icon {
     background-color: var(--color-theme);
     border-radius: var(--border-radius);
     padding: var(--padding-popup-text);
-}
-
-.popup.show {
-    opacity: 1;
-    visibility: visible; 
 }
 
 .popup-title {

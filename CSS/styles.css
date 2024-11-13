@@ -120,11 +120,13 @@ button ion-icon {
 
 /* #region accordians */
 
+/* summary is the top part of the accordian.
+   Details is the bottom part of the accordian.
+*/
 .side-panel summary {
-    padding: 15px 15px;
     background-color: var(--color-b);
-    border-radius: 5px 5px 0px 0px;
-
+    border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+    padding: var(--padding-accordian-summary);
     transition: background-color var(--transition-duration) var(--transition-effect),
                 color var(--transition-duration) var(--transition-effect);
 }
@@ -134,8 +136,8 @@ button ion-icon {
 }
 
 .side-panel details {
-    border-radius: 5px;
     background-color: var(--color-c);
+    border-radius: var(--border-radius);
 }
 
 /* #endregion */

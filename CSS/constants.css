@@ -30,9 +30,10 @@
 
     --outline-cell: 4px solid var(--color-selected);
 
-    --padding-popup: 15px;
-    --padding-popup-text: 5px;
+    --padding-accordian-summary: 10px;
     --padding-modal: 10px;
+    --padding-popup-text: 5px;
+    --padding-popup: 15px;
 
     --size-font: 1rem;
     --size-header: 4rem;

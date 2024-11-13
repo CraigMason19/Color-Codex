@@ -22,6 +22,13 @@ const gridContainer = document.getElementById('grid-container');
 const contextMenuLeft = document.getElementById('context-menu-left');
 const contextMenuRight = document.getElementById('context-menu-right');
 
+// Side panel items
+const columnInput = document.getElementById('size-column-input');
+const cellCountInput = document.getElementById('cell-count-input');
+const cellGapInput = document.getElementById('cell-gap-input');
+const cellSizeInput = document.getElementById('cell-size-input');
+const cellBorderRadiusInput = document.getElementById('cell-border-radius-input');
+
 const restoreDefaultsButton = document.getElementById('restore-defaults-button');
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
@@ -29,7 +36,6 @@ const copyCodexButton = document.getElementById('copy-codex-button');
 const restoreCodexButton = document.getElementById('restore-codex-button');
 
 const codexTextData = document.getElementById('codex-text-data');
-
 
 // Dynamic variables
 let currentGridItem = null;
@@ -44,18 +50,24 @@ let codexData = new CodexData();
 // #region Options
 
 function initOptions() {
-    document.getElementById('size-column-input').value = codexData.options.columnCount;
-    document.getElementById('size-column-input').title = `Values must be within the ${minimumOptions.columnCount} - ${maximumOptions.cellCount} range`;
-
-    document.getElementById('cell-count-input').value = codexData.options.cellCount;
-    document.getElementById('cell-gap-input').value = codexData.options.gapSize;
-    document.getElementById('cell-size-input').value = codexData.options.cellSize;
-    document.getElementById('cell-border-radius-input').value = codexData.options.borderRadius;
-
+    columnInput.value = codexData.options.columnCount;
+    columnInput.title = `Values must be within the ${minimumOptions.columnCount} - ${maximumOptions.columnCount} range`;
     setGridContainerWidth(codexData.options.columnCount);
+
+    cellCountInput.value = codexData.options.cellCount;
+    cellCountInput.title = `Values must be within the ${minimumOptions.cellCount} - ${maximumOptions.cellCount} range`;
     createCells(codexData.options.cellCount);
+
+    cellSizeInput.value = codexData.options.cellSize;
+    cellSizeInput.title = `Values must be within the ${minimumOptions.cellSize} - ${maximumOptions.cellSize} range`;
     setCellSize(codexData.options.cellSize);
+
+    cellGapInput.value = codexData.options.gapSize;
+    cellGapInput.title = `Values must be within the ${minimumOptions.gapSize} - ${maximumOptions.gapSize} range`;
     setGapSize(codexData.options.defaultGapSize);
+
+    cellBorderRadiusInput.value = codexData.options.borderRadius;
+    cellBorderRadiusInput.title = `Values must be within the ${minimumOptions.borderRadius} - ${maximumOptions.borderRadius} range`;
     setBorderRadius(codexData.options.borderRadius);
 
     updateDataTextBox();
@@ -108,7 +120,7 @@ function processOptions(input) {
 
     switch (input.id) {
         case "size-column-input":
-            if(!isNaN(value) && isInRange(value, 1, 64)) {
+            if(!isNaN(value) && isInRange(value, minimumOptions.columnCount, maximumOptions.columnCount)) {
                 codexData.options.columnCount = value;
 
                 setGridContainerWidth(codexData.options.columnCount);
@@ -118,7 +130,7 @@ function processOptions(input) {
             break;
 
         case "cell-count-input": 
-            if(!isNaN(value) && isInRange(value, 1, 100)) {
+            if(!isNaN(value) && isInRange(value, minimumOptions.cellCount, maximumOptions.cellCount)) {
                 codexData.options.cellCount = value;
 
                 createCells(codexData.options.cellCount);
@@ -130,7 +142,7 @@ function processOptions(input) {
             break;
 
         case "cell-size-input":
-            if(!isNaN(value) && isInRange(value, 1, 250)) {
+            if(!isNaN(value) && isInRange(value, minimumOptions.cellSize, maximumOptions.cellSize)) {
                 codexData.options.cellSize = value;
 
                 setCellSize(codexData.options.cellSize);
@@ -140,7 +152,7 @@ function processOptions(input) {
             break;
 
         case "cell-gap-input":
-            if(!isNaN(value) && isInRange(value, 0, 64)) {
+            if(!isNaN(value) && isInRange(value, minimumOptions.gapSize, maximumOptions.gapSize)) {
                 codexData.options.gapSize = value;
 
                 setGapSize(codexData.options.gapSize);
@@ -150,7 +162,7 @@ function processOptions(input) {
             break;
 
         case "cell-border-radius-input":
-            if(!isNaN(value) && isInRange(value, 0, 100)) {
+            if(!isNaN(value) && isInRange(value, minimumOptions.borderRadius, maximumOptions.borderRadius)) {
                 codexData.options.borderRadius = value;
 
                 setBorderRadius(codexData.options.borderRadius);
@@ -164,15 +176,12 @@ function processOptions(input) {
     }       
 
     if(isValidInput) {
-        input.classList.add('input-valid');    
         input.classList.remove('input-invalid');    
         updateDataTextBox();
     }
     else {
         currentGridItem = null;
-
-        input.classList.add('input-invalid');    
-        input.classList.remove('input-valid');  
+        input.classList.add('input-invalid');  
     }
 }
 

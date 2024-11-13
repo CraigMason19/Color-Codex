@@ -92,6 +92,7 @@ button ion-icon {
     flex-direction: column;
     /* justify-content: space-start; */
     /* padding-top: 0px; */
+    min-width: var(--width-side-panel);  
     padding: 10px;
     width: var(--width-side-panel);  
 }

@@ -75,48 +75,34 @@ button ion-icon {
 
 /* #endregion */
 
-
-
-
-
-
-
 /* #region Side Panel */
 
 .side-panel {
     background-color: var(--color-theme);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    color: white;
+    color: var(--color-header);
     display: flex;
     flex-direction: column;
-    /* justify-content: space-start; */
-    /* padding-top: 0px; */
     min-width: var(--width-side-panel);  
-    padding: 10px;
     width: var(--width-side-panel);  
+}
+
+.side-panel-item {
+    display: flex;
+    margin: var(--margin-side-panel);
 }
 
 .header {
     align-items: center;
     display: flex;
-    gap: 5%;
+    gap: var(--gap-icon-text);
 }
-
 
 .header ion-icon {
     color: var(--color-header);
     font-size: var(--size-header);
 }
-
-.side-panel-item {
-    display: flex;
-    margin: 5px 0px;
-}
-
-
-
-
 
 /* #region accordians */
 
@@ -142,28 +128,11 @@ button ion-icon {
 
 /* #endregion */
 
-
-
-
-
-
-
-.side-panel div {
-    margin: 2% 5%;
-}
-
-.side-panel div * {
-    margin: 2% 0%;
-}
-
 .side-panel textarea {
     background-color: var(--color-disabled);
 }
 
 /* #endregion */
-
-
-
 
 /* #region Main Panel */
 
@@ -271,12 +240,16 @@ button ion-icon {
  
 
 
-
-
-
-
-
 /* TODO */
+
+.even-space {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px;
+    gap: 5px;
+    /* margin: 5px;   */
+}
+
 
 /* #region ContextMenu */
 
@@ -408,9 +381,4 @@ button ion-icon {
 
 
 /* #endregion */
-
-
-
-
-
 

@@ -22,10 +22,12 @@
     --color-header: white;
 
     --gap-modal: 10px;
+    --gap-icon-text: 5%;
 
     --height-button: 2.4rem;
     --height-modal: 60%;
 
+    --margin-side-panel: 10px;
     --min-width-popup: 15%;
 
     --outline-cell: 4px solid var(--color-selected);

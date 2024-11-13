@@ -2,7 +2,7 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 
 import { showPopup } from './popup.js';
 import { Color } from './color.js';
-import { CodexData } from './codex-data.js';
+import { CodexData, minimumOptions, maximumOptions } from './codex-data.js';
 
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
@@ -41,11 +41,12 @@ let lastMouseY = 0;
 let codexData = new CodexData();
 
 
-
 // #region Options
 
 function initOptions() {
     document.getElementById('size-column-input').value = codexData.options.columnCount;
+    document.getElementById('size-column-input').title = `Values must be within the ${minimumOptions.columnCount} - ${maximumOptions.cellCount} range`;
+
     document.getElementById('cell-count-input').value = codexData.options.cellCount;
     document.getElementById('cell-gap-input').value = codexData.options.gapSize;
     document.getElementById('cell-size-input').value = codexData.options.cellSize;

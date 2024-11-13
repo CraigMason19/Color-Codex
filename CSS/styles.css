@@ -81,7 +81,7 @@ button ion-icon {
 
 
 
-/* #region SidePanel */
+/* #region Side Panel */
 
 .side-panel {
     background-color: var(--color-theme);
@@ -162,48 +162,34 @@ button ion-icon {
 /* #endregion */
 
 
-/* #region Grid */
 
-.grid-container-wrapper {
-    display: flex;
-    justify-content: center;
+
+/* #region Main Panel */
+
+.main-panel {
     align-items: center;
+    display: flex;
     flex-grow: 1;
+    justify-content: center;
     overflow: auto; /* Allows the grid to scroll if it overflows */
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto;
 }
 
 .grid-item {
-    width: var(--size-cell);
-    height: var(--size-cell);
-    background-color: var(--color-cell-default);
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* border-radius: var(--border-radius-cell); */
     cursor: pointer;
-    transition: background-color 0.2s;
-
+    transition: var(--transition-grid-color-change);
     z-index: 0;
 }
 
 .grid-item:hover {
-    outline: 4px solid var(--color-selected);
-    /* outline-offset: 0px; */
-
-    z-index: 1;
+    outline: var(--outline-cell);
+    z-index: 1; /* Make sure to be ontop of the grid item */
 }
 
 /* #endregion */
-
-
-
-
-
 
 /* #region Modal */
 

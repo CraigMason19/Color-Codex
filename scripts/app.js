@@ -17,7 +17,7 @@ const modalCloseButton = document.getElementById('modal-close-button');
 const modalRestoreButton = document.getElementById('modal-restore-button');
 const modalTextArea = document.getElementById('modal-text-area');
 
-const gridContainer = document.querySelector('.grid-container');
+const gridContainer = document.getElementById('grid-container');
 
 const contextMenuLeft = document.getElementById('context-menu-left');
 const contextMenuRight = document.getElementById('context-menu-right');

@@ -345,7 +345,7 @@ document.querySelectorAll('.color-input input').forEach(input => {
 
 // #region App
 
-// Dynamically create grid items
+// Dynamically create grid items (cells)
 // Multiple event listeners
 // - Left click - open input color menu
 // - right click - open copy color menu

@@ -315,16 +315,21 @@ button ion-icon {
     outline: var(--debug-outline);
 }
 
-#input-context-menu {
+/* .modal {
+    opacity: 1 !important;
+    visibility: visible !important;    
+} */
+
+/* #input-context-menu {
     display: block;
     top: var(--debug-top-context-menu);
     left: var(--debug-left-input-context-menu);
-}
+} */
 
-#copy-context-menu {
+/* #copy-context-menu {
     display: block;
     top: var(--debug-top-context-menu);
     left: var(--debug-left-copy-context-menu);
-}
+} */
 
 /* #endregion */

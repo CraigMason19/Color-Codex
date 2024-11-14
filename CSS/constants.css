@@ -22,11 +22,12 @@
     --color-header: white;
 
     --gap-modal: 10px;
-    --gap-icon-text: 5%;
 
     --height-button: 2.4rem;
+    --height-color-copy-container: 2.3rem;
     --height-modal: 60%;
 
+    --margin-right-icon: 10px;
     --margin-side-panel: 10px;
     --min-width-popup: 15%;
 
@@ -53,5 +54,6 @@
     --width-side-panel: 20%;
 
     --z-index-modal: 1000;
+    --z-index-context-menu: 500;
     --z-index-popup: 1500;
 }

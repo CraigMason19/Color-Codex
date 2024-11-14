@@ -12,11 +12,6 @@
     padding: 0;
 }
 
-/* debug option to show all borders for ALL elements */
-.show-borders * {
-    outline: var(--debug-outline);
-}
-
 body {
     background-color: var(--color-background);
     display: flex;
@@ -32,6 +27,7 @@ textarea {
 
 ion-icon {
     font-size: var(--size-icon);
+    margin-right: var(--margin-right-icon);
 }
 
 p {
@@ -41,6 +37,13 @@ p {
 .show {
     opacity: 1 !important;
     visibility: visible !important; 
+}
+
+.even-space {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+    gap: 8px;
 }
 
 /* #endregion */
@@ -96,7 +99,6 @@ button ion-icon {
 .header {
     align-items: center;
     display: flex;
-    gap: var(--gap-icon-text);
 }
 
 .header ion-icon {
@@ -107,7 +109,7 @@ button ion-icon {
 /* #region accordians */
 
 /* summary is the top part of the accordian.
-   Details is the bottom part of the accordian.
+   details is the bottom part of the accordian.
 */
 .side-panel summary {
     background-color: var(--color-b);
@@ -237,72 +239,37 @@ button ion-icon {
 
 /* #endregion */
 
- 
-
-
-/* TODO */
-
-.even-space {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 20px;
-    gap: 5px;
-    /* margin: 5px;   */
-}
-
-
 /* #region ContextMenu */
 
 .context-menu {
-    position: absolute;
-
-    width: fit-content;
     background-color: var(--color-theme);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
- 
-    margin:0px;
-    padding: 0;
-
-    z-index: 1000;
-    color: white;
-
-    border-radius: 5px;
-
-}
-
-.context-menu {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    color: var(--color-font-selected);
     display: none;
+    position: absolute;
+    width: fit-content;
+    z-index: var(--z-index-context-menu);
 }
 
-.context-menu-right {
+.color-copy-container {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    display: none;
+    align-items: center;
+    justify-content:flex-start;
+    height:var(--height-color-copy-container);
 }
 
-/* .context-menu button {
-    margin-top: 2px;
-    width: 100%;
-    padding: 10px;
-    background-color: var(--color-background);
-    color: var(--color-theme);
-    border: none;
+.color-copy-container:hover {
+    background-color: var( --color-selected);
     cursor: pointer;
-} */
-
-
-.context-menu div {
-    padding: 10px;
-}
-
-.context-menu p {
-    margin: 0;
-    padding: 5px 10px;
+    border-radius: var(--border-radius);
 }
 
 /* #endregion */
+
+
+
+
 
 /* #region input */
 
@@ -319,7 +286,7 @@ button ion-icon {
 
 .input input {
     padding: .3rem;
-    font-size: 14px;
+    /* font-size: 14px; */
     color: #24292e;
     vertical-align: middle;
     background-color: #ffffff;
@@ -356,29 +323,36 @@ button ion-icon {
 /* #endregion */
 
 
-/* #region color */
 
 
 
 
-.color-copy-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
-    border-radius: 5px;
-    margin: 5px;
-    padding: 0px 5px !important;
 
-    height:40px;
+
+/* #region Debug */
+
+/* Show all borders for ALL elements */
+.show-borders * {
+    outline: var(--debug-outline);
 }
 
-.color-copy-container:hover {
-    background-color: var( --color-selected);
-    cursor: pointer;
+#context-menu-left {
+    display: block;
+    top: 0px;
+    left: 330px;
 }
 
-
+#context-menu-right {
+    display: block;
+    top: 0px;
+    left: 610px;
+}
 
 /* #endregion */
+
+
+
+
+
 

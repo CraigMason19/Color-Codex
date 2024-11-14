@@ -118,44 +118,48 @@
 
 
     <!-- Context menu left -->
-    <div id="context-menu-left" class="context-menu context-menu-left">
-        <div class="input color-input">
-            <label for="rgb-input" tabindex="0">RGB (0.0 - 1.0): </label>
-            <input id="rgb-input" type="text" value="0.8, 0.0, 0.8">
-        </div>    
+    <div id="context-menu-left" class="context-menu">
+        <div class="even-space">
+            <div class="input color-input">
+                <label for="rgb-input" tabindex="0">RGB (0.0 - 1.0): </label>
+                <input id="rgb-input" type="text" value="0.8, 0.0, 0.8">
+            </div>    
 
-        <div class="input color-input">
-            <label for="rgb255-input" tabindex="0">RGB (0 - 255): </label>
-            <input id="rgb255-input" type="text" value="200, 50, 00">
-        </div>  
+            <div class="input color-input">
+                <label for="rgb255-input" tabindex="0">RGB (0 - 255): </label>
+                <input id="rgb255-input" type="text" value="200, 50, 00">
+            </div>  
 
-        <div class="input color-input">
-            <label for="hex-input" tabindex="0">Hex: </label>
-            <input id="hex-input" type="text" value="#FF00FF">
-        </div>  
+            <div class="input color-input">
+                <label for="hex-input" tabindex="0">Hex: </label>
+                <input id="hex-input" type="text" value="#FF00FF">
+            </div>  
 
-        <div class="input color-input">
-            <label for="web-input" tabindex="0">Web: </label>
-            <input id="web-input" type="text" value="cornflowerblue">
-        </div>  
+            <div class="input color-input">
+                <label for="web-input" tabindex="0">Web: </label>
+                <input id="web-input" type="text" value="cornflowerblue">
+            </div> 
+        </div> 
     </div>
 
 
     <!-- Context menu right -->
-    <div id="context-menu-right" class="context-menu context-menu-right">
-        <div id="color-copy-rgb" class="color-copy-container">
-            <p>RGB Value</p>
-            <ion-icon name="copy-outline"></ion-icon>
-        </div>
+    <div id="context-menu-right" class="context-menu">
+        <div class="even-space">
+            <div id="color-copy-rgb" class="color-copy-container">
+                <ion-icon name="copy-outline"></ion-icon>
+                <p>RGB Value</p>
+            </div>
 
-        <div id="color-copy-rgb255" class="color-copy-container">
-            <p>RGB Value</p>
-            <ion-icon name="copy-outline"></ion-icon>
-        </div>
+            <div id="color-copy-rgb255" class="color-copy-container">
+                <ion-icon name="copy-outline"></ion-icon>
+                <p>RGB Value</p>
+            </div>
 
-        <div id="color-copy-hex" class="color-copy-container">
-            <p>Hex: Value</p>
-            <ion-icon name="copy-outline"></ion-icon>
+            <div id="color-copy-hex" class="color-copy-container">
+                <ion-icon name="copy-outline"></ion-icon>
+                <p>Hex: Value</p>
+            </div>
         </div>
     </div>
 

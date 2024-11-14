@@ -1,16 +1,24 @@
 :root {
     --debug-outline: 2px solid darkcyan; 
     
+    --background-color-invalid: lightcoral; 
+   
+    --border-input: 1px solid darkgrey;
+
+    --border-color-invalid: var(--color-invalid);
+
     --border-radius-button: 10px;
     --border-radius: 5px;
 
+    --box-shadow-input-invalid: var(--color-invalid) 0px 0px 0px 3px;
+    --box-shadow-input-selected: var(--color-selected) 0px 0px 0px 3px;
     --box-shadow: 2px 0 5px var(--color-drop-shadow);
 
     --color-theme: #224579;
     --color-b: #166088;
     --color-c: #4a6fa5;
     --color-selected: #3DC2EC;
-
+    --color-invalid: #d60342;
     --color-background-modal: rgba(0, 0, 0, 0.2);
     --color-background: white;
     --color-cell-default: #cccccc;
@@ -20,6 +28,7 @@
     --color-font: black;
     --color-header: white;
 
+    --gap-input: 10px;
     --gap-modal: 10px;
 
     --height-button: 2.4rem;
@@ -28,12 +37,17 @@
 
     --margin-right-icon: 10px;
     --margin-side-panel: 10px;
+
     --min-width-popup: 15%;
 
     --outline-cell: 4px solid var(--color-selected);
 
+    --width-option-input: 8ch;
+    --width-color-input: 15ch;
+
     --padding-accordian-summary: 10px;
     --padding-color-copy-container: 0px 10px;
+    --padding-input: .3rem;
     --padding-modal: 10px;
     --padding-popup-text: 5px;
     --padding-popup: 15px;
@@ -58,7 +72,7 @@
     --z-index-popup: 1500;
 
     /* DEBUG */
-    --debug-left-copy-context-menu: 610px;
+    --debug-left-copy-context-menu: 630px;
     --debug-left-input-context-menu: 330px;
     --debug-top-context-menu: 0px;
 }

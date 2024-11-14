@@ -39,7 +39,7 @@ p {
     visibility: visible !important; 
 }
 
-.even-space {
+.evenly-spaced-column {
     display: flex;
     flex-direction: column;
     padding: 10px 10px;
@@ -269,68 +269,44 @@ button ion-icon {
 
 /* #endregion */
 
-
-
-
-
 /* #region input */
 
 .input {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.input label {
-    /* font-weight: bold; */
-    margin-right: 10px; 
+    gap: var(--gap-input);
 }
 
 .input input {
-    padding: .3rem;
-    /* font-size: 14px; */
-    color: #24292e;
-    vertical-align: middle;
-    background-color: #ffffff;
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    border: 1px solid #e1e4e8;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
+    border: var(--border-input);
+    font-size: var(--size-font);
     outline: none;
-    box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
-
-    margin: 0;
+    padding: var(--padding-input);
     text-align: center;
 }
 
 .input input:focus{
     border-color: var( --color-selected);
-    box-shadow: var( --color-selected) 0px 0px 0px 3px;
+    box-shadow: var(--box-shadow-input-selected);
 }
 
 .option-input input {
-    width: 8ch;
+    width: var(--width-option-input);
 }
 
 .color-input input {
-    width: 15ch;
+    width: var(--width-color-input);
 }
 
 .input-invalid {
-    background-color: lightcoral !important;
-    border-color: #d60342 !important;
-    box-shadow: #d60342 0px 0px 0px 3px !important;
+    background-color: var(--background-color-invalid) !important;
+    border-color: var(--border-color-invalid) !important;
+    box-shadow: var(--box-shadow-input-invalid) !important;
 }
 
 /* #endregion */
-
-
-
-
-
-
-
-
 
 /* #region Debug */
 

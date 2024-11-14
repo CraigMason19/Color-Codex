@@ -42,11 +42,9 @@
 
     --outline-cell: 4px solid var(--color-selected);
 
-    --width-option-input: 8ch;
-    --width-color-input: 15ch;
-
     --padding-accordian-summary: 10px;
     --padding-color-copy-container: 0px 10px;
+    --padding-color-picker: 0 2px;
     --padding-input: .3rem;
     --padding-modal: 10px;
     --padding-popup-text: 5px;
@@ -64,11 +62,14 @@
     --transition-grid-color-change: background-color 0.2s;
     --transition-show-hide: opacity 0.4s ease-in-out, visibility 0.3s ease-in-out;
 
+    --width-option-input: 8ch;
+    --width-color-input: 15ch;
     --width-modal: 40%;
     --width-side-panel: 20%;
+    --width-color-picker: 16.3ch;
 
-    --z-index-modal: 1000;
     --z-index-context-menu: 500;
+    --z-index-modal: 1000;
     --z-index-popup: 1500;
 
     /* DEBUG */

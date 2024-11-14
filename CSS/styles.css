@@ -93,12 +93,13 @@ button ion-icon {
 
 .side-panel-item {
     display: flex;
+    flex-direction: column;
     margin: var(--margin-side-panel);
 }
 
 .header {
     align-items: center;
-    display: flex;
+    flex-direction: row !important;
 }
 
 .header ion-icon {
@@ -298,6 +299,12 @@ button ion-icon {
 
 .color-input input {
     width: var(--width-color-input);
+}
+
+.color-picker-input input {
+    width: var(--width-color-picker);
+    padding: var(--padding-color-picker);
+    background-color: white;
 }
 
 .input-invalid {

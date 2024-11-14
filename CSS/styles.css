@@ -242,7 +242,7 @@ button ion-icon {
 /* #region ContextMenu */
 
 .context-menu {
-    background-color: var(--color-theme);
+    background-color: var(--color-c);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     color: var(--color-font-selected);
@@ -257,6 +257,8 @@ button ion-icon {
     align-items: center;
     justify-content:flex-start;
     height:var(--height-color-copy-container);
+
+    padding: var(--padding-color-copy-container);
 }
 
 .color-copy-container:hover {
@@ -337,22 +339,16 @@ button ion-icon {
     outline: var(--debug-outline);
 }
 
-#context-menu-left {
+#input-context-menu {
     display: block;
-    top: 0px;
-    left: 330px;
+    top: var(--debug-top-context-menu);
+    left: var(--debug-left-input-context-menu);
 }
 
-#context-menu-right {
+#copy-context-menu {
     display: block;
-    top: 0px;
-    left: 610px;
+    top: var(--debug-top-context-menu);
+    left: var(--debug-left-copy-context-menu);
 }
 
 /* #endregion */
-
-
-
-
-
-

@@ -10,15 +10,14 @@
     --color-b: #166088;
     --color-c: #4a6fa5;
     --color-selected: #3DC2EC;
-    --color-disabled: #cccccc;
-    --color-background: white;
+
     --color-background-modal: rgba(0, 0, 0, 0.2);
+    --color-background: white;
     --color-cell-default: #cccccc;
+    --color-disabled: #cccccc;
     --color-drop-shadow: rgba(0, 0, 0, 0.3);
-
-    --color-font: black;
     --color-font-selected: white;
-
+    --color-font: black;
     --color-header: white;
 
     --gap-modal: 10px;
@@ -34,6 +33,7 @@
     --outline-cell: 4px solid var(--color-selected);
 
     --padding-accordian-summary: 10px;
+    --padding-color-copy-container: 0px 10px;
     --padding-modal: 10px;
     --padding-popup-text: 5px;
     --padding-popup: 15px;
@@ -56,4 +56,9 @@
     --z-index-modal: 1000;
     --z-index-context-menu: 500;
     --z-index-popup: 1500;
+
+    /* DEBUG */
+    --debug-left-copy-context-menu: 610px;
+    --debug-left-input-context-menu: 330px;
+    --debug-top-context-menu: 0px;
 }

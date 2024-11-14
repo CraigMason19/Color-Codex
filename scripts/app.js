@@ -19,8 +19,8 @@ const modalTextArea = document.getElementById('modal-text-area');
 
 const gridContainer = document.getElementById('grid-container');
 
-const contextMenuLeft = document.getElementById('context-menu-left');
-const contextMenuRight = document.getElementById('context-menu-right');
+const inputContextMenu = document.getElementById('input-context-menu');
+const copyContextMenu = document.getElementById('copy-context-menu');
 
 // Side panel items
 const columnInput = document.getElementById('size-column-input');
@@ -281,17 +281,17 @@ modalCloseButton.addEventListener("click", function() {
 // #region Context Menu
 
 function showInputContextMenu(x, y) {
-    contextMenuLeft.style.display = 'block';
-    contextMenuRight.style.display = 'none';
-    contextMenuLeft.style.left = `${x}px`;
-    contextMenuLeft.style.top = `${y}px`;
+    inputContextMenu.style.display = 'block';
+    copyContextMenu.style.display = 'none';
+    inputContextMenu.style.left = `${x}px`;
+    inputContextMenu.style.top = `${y}px`;
 }
 
 function showCopyContextMenu(x, y) {
-    contextMenuRight.style.display = 'block';
-    contextMenuLeft.style.display = 'none';
-    contextMenuRight.style.left = `${x}px`;
-    contextMenuRight.style.top = `${y}px`;
+    copyContextMenu.style.display = 'block';
+    inputContextMenu.style.display = 'none';
+    copyContextMenu.style.left = `${x}px`;
+    copyContextMenu.style.top = `${y}px`;
 
     let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
     currentColor = Color.fromRGB255(...rgbValues);
@@ -302,8 +302,8 @@ function showCopyContextMenu(x, y) {
 }
 
 function closeContextMenus() {
-    contextMenuLeft.style.display = 'none';
-    contextMenuRight.style.display = 'none';
+    inputContextMenu.style.display = 'none';
+    copyContextMenu.style.display = 'none';
 }
 
 document.querySelectorAll('.color-copy-container').forEach(function(colorCopyContainer) {
@@ -330,7 +330,7 @@ document.querySelectorAll('.color-copy-container').forEach(function(colorCopyCon
             } 
 
             navigator.clipboard.writeText(copyString);
-            contextMenuRight.style.display = 'none';
+            copyContextMenu.style.display = 'none';
             
             showPopup("Color Copied", copyString, currentColor); 
         }
@@ -481,7 +481,7 @@ function changeGridItemColor(input) {
 
 // Hide both context menus when the click target is not within either context menu
 document.addEventListener('click', function(e) {
-    if (!contextMenuLeft.contains(e.target) && !contextMenuRight.contains(e.target)) {
+    if (!inputContextMenu.contains(e.target) && !copyContextMenu.contains(e.target)) {
         closeContextMenus();
     }
 });

@@ -70,6 +70,7 @@ button:hover {
 button:disabled {
     background-color: var(--color-disabled);
     color: var(--color-font) !important;
+    cursor: not-allowed;
 }
 
 button ion-icon {

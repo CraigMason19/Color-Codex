@@ -22,6 +22,8 @@ const gridContainer = document.getElementById('grid-container');
 const inputContextMenu = document.getElementById('input-context-menu');
 const copyContextMenu = document.getElementById('copy-context-menu');
 
+const colorPicker = document.getElementById('color-picker-input');
+
 // Side panel items
 const columnInput = document.getElementById('size-column-input');
 const cellCountInput = document.getElementById('cell-count-input');
@@ -306,6 +308,25 @@ function closeContextMenus() {
     copyContextMenu.style.display = 'none';
 }
 
+
+
+//  Change color by enter or input validation
+document.querySelectorAll('.color-input input').forEach(input => {
+    input.addEventListener('input', function(event) {
+        changeGridItemColor(input);
+    });
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            changeGridItemColor(input);
+        }
+    });
+});
+
+colorPicker.addEventListener('input', (event) => {
+    currentGridItem.style.backgroundColor = event.target.value;
+});
+
 document.querySelectorAll('.color-copy-container').forEach(function(colorCopyContainer) {
     colorCopyContainer.addEventListener('click', function() {
 
@@ -333,19 +354,6 @@ document.querySelectorAll('.color-copy-container').forEach(function(colorCopyCon
             copyContextMenu.style.display = 'none';
             
             showPopup("Color Copied", copyString, currentColor); 
-        }
-    });
-});
-
-//  Change color by enter or input validation
-document.querySelectorAll('.color-input input').forEach(input => {
-    input.addEventListener('input', function(event) {
-        changeGridItemColor(input);
-    });
-
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            changeGridItemColor(input);
         }
     });
 });

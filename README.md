@@ -4,7 +4,7 @@
 JavaScript, CSS, HTML, Node.js
 
 - **NPM Packages Used**<br/>
-    - [html2canvas](https://www.npmjs.com/package/html2canvas) (for saving the codex)
+    - [html2canvas](https://www.npmjs.com/package/html2canvas) (for saving the codex as a image)
 
 - **Dev Dependencies**<br/>
     - [Jest](https://www.npmjs.com/package/jest) (for testing)<br/>

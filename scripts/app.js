@@ -3,7 +3,6 @@ import html2canvas from '../node_modules/html2canvas/dist/html2canvas.esm.js';
 import { showPopup } from './popup.js';
 import { Color } from './color.js';
 import { CodexData, minimumOptions, maximumOptions } from './codex-data.js';
-
 import { isInRange, isValidRgb, isValidRgb255, isValidHex, isValidWeb }  from './validation.js';
 
 
@@ -12,19 +11,7 @@ const styles = getComputedStyle(document.body);
 const defaultCellColor = Color.fromHex(styles.getPropertyValue('--color-cell-default'));
 const themeColor = Color.fromHex(styles.getPropertyValue('--color-theme'));
 
-const modal = document.getElementById('modal');
-const modalCloseButton = document.getElementById('modal-close-button');
-const modalRestoreButton = document.getElementById('modal-restore-button');
-const modalTextArea = document.getElementById('modal-text-area');
-
-const gridContainer = document.getElementById('grid-container');
-
-const inputContextMenu = document.getElementById('input-context-menu');
-const copyContextMenu = document.getElementById('copy-context-menu');
-
-const colorPicker = document.getElementById('color-picker-input');
-
-// Side panel items
+// Side panel elements
 const columnInput = document.getElementById('size-column-input');
 const cellCountInput = document.getElementById('cell-count-input');
 const cellGapInput = document.getElementById('cell-gap-input');
@@ -39,8 +26,22 @@ const restoreCodexButton = document.getElementById('restore-codex-button');
 
 const codexTextData = document.getElementById('codex-text-data');
 
+// Other elements
+const gridContainer = document.getElementById('grid-container');
+
+const modal = document.getElementById('modal');
+const modalCloseButton = document.getElementById('modal-close-button');
+const modalRestoreButton = document.getElementById('modal-restore-button');
+const modalTextArea = document.getElementById('modal-text-area');
+
+const inputContextMenu = document.getElementById('input-context-menu');
+const copyContextMenu = document.getElementById('copy-context-menu');
+
+const colorPicker = document.getElementById('color-picker-input');
+
+
 // Dynamic variables
-let currentGridItem = null;
+let currentCell = null;
 let currentColor = null;
 
 let lastMouseX = 0;
@@ -82,24 +83,24 @@ function setGridContainerWidth(value) {
     gridContainer.style.gridTemplateColumns = width;
 }
 
-function setGapSize(value) {
-    gridContainer.style.gap = `${value}px`;
-}
-
 function setCellSize(value) {
     let cells = document.querySelectorAll('.grid-item');
     
-    cells.forEach(item => {
-        item.style.width = `${value}px`;
-        item.style.height = `${value}px`;
+    cells.forEach(cell => {
+        cell.style.width = `${value}px`;
+        cell.style.height = `${value}px`;
     });
+}
+
+function setGapSize(value) {
+    gridContainer.style.gap = `${value}px`;
 }
 
 function setBorderRadius(value) {
     let cells = document.querySelectorAll('.grid-item');
     
-    cells.forEach(item => {
-        item.style.borderRadius = `${value}px`;
+    cells.forEach(cell => {
+        cell.style.borderRadius = `${value}px`;
     });
 }
 
@@ -108,12 +109,6 @@ document.querySelectorAll('.option-input input').forEach(input => {
     input.addEventListener('input', function(event) {
         processOptions(input);
     });
-
-    // input.addEventListener('keydown', function(event) {
-    //     if (event.key === 'Enter') {
-    //         processOptions(input);
-    //     }
-    // });
 });
 
 function processOptions(input) {
@@ -182,28 +177,13 @@ function processOptions(input) {
         updateDataTextBox();
     }
     else {
-        currentGridItem = null;
+        currentCell = null;
         input.classList.add('input-invalid');  
     }
 }
 
-function updateDataTextBox() {
-    codexTextData.value = "// Options\n";
-    codexTextData.value += `columnCount: ${codexData.options.columnCount}\n`;
-    codexTextData.value += `cellCount: ${codexData.options.cellCount}\n`;
-    codexTextData.value += `cellSize: ${codexData.options.cellSize}\n`;
-    codexTextData.value += `gapSize: ${codexData.options.gapSize}\n`;
-    codexTextData.value += `borderRadius: ${codexData.options.borderRadius}\n`;
-
-    codexTextData.value += "\n// Colors\n";
-
-    for(let item of document.querySelectorAll('.grid-item')) {
-        const c = Color.fromRGBString(item.style.backgroundColor);
-        codexTextData.value += `color: ${c.toHex()}\n`;    
-    }
-};
-
 // #endregion
+
 
 // #region Actions
 
@@ -280,22 +260,25 @@ modalCloseButton.addEventListener("click", function() {
 
 // #endregion
 
+
 // #region Context Menu
 
 function showInputContextMenu(x, y) {
-    inputContextMenu.style.display = 'block';
     copyContextMenu.style.display = 'none';
+
+    inputContextMenu.style.display = 'block';
     inputContextMenu.style.left = `${x}px`;
     inputContextMenu.style.top = `${y}px`;
 }
 
 function showCopyContextMenu(x, y) {
-    copyContextMenu.style.display = 'block';
     inputContextMenu.style.display = 'none';
+
+    copyContextMenu.style.display = 'block';
     copyContextMenu.style.left = `${x}px`;
     copyContextMenu.style.top = `${y}px`;
 
-    let rgbValues = currentGridItem.style.backgroundColor.match(/\d+/g).map(Number);
+    let rgbValues = currentCell.style.backgroundColor.match(/\d+/g).map(Number);
     currentColor = Color.fromRGB255(...rgbValues);
 
     document.getElementById('color-copy-rgb').querySelector('p').innerHTML = currentColor.toRgb();
@@ -308,29 +291,41 @@ function closeContextMenus() {
     copyContextMenu.style.display = 'none';
 }
 
+// Hide both context menus when the click target is not within either context menu
+document.addEventListener('click', function(e) {
+    if (!inputContextMenu.contains(e.target) && !copyContextMenu.contains(e.target)) {
+        closeContextMenus();
+    }
+});
 
+// Or when ESCAPE key is pressed
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeContextMenus();
+    }
+});
 
 //  Change color by enter or input validation
 document.querySelectorAll('.color-input input').forEach(input => {
     input.addEventListener('input', function(event) {
-        changeGridItemColor(input);
+        changeCellColor(input);
     });
 
     input.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
-            changeGridItemColor(input);
+            changeCellColor(input);
         }
     });
 });
 
 colorPicker.addEventListener('input', (event) => {
-    currentGridItem.style.backgroundColor = event.target.value;
+    currentCell.style.backgroundColor = event.target.value;
 });
 
 document.querySelectorAll('.color-copy-container').forEach(function(colorCopyContainer) {
     colorCopyContainer.addEventListener('click', function() {
 
-        if (currentGridItem) {
+        if (currentCell) {
             let copyString = null;
 
             switch (colorCopyContainer.id) {
@@ -364,26 +359,20 @@ document.querySelectorAll('.color-copy-container').forEach(function(colorCopyCon
 // #region App
 
 // Dynamically create grid items (cells)
-// Multiple event listeners
-// - Left click - open input color menu
-// - right click - open copy color menu
-// - CTRL + C - open copy color menu
-// - Mouse move to store the position of where to open the context menus
-// - Mouse enter / leave to focus / lose focus
 function createCells(cellCount) {
     gridContainer.innerHTML = '';  // This removes all child elements
     setGapSize(codexData.options.gapSize);
 
     for (let i = 0; i < cellCount; i++) {
-        const gridItem = document.createElement('div');
-        gridItem.classList.add('grid-item');
-        gridItem.style.backgroundColor = defaultCellColor.toHex();
+        const cell = document.createElement('div');
+        cell.classList.add('grid-item');
+        cell.style.backgroundColor = defaultCellColor.toHex();
 
         // Make the div focusable
-        gridItem.setAttribute('tabindex', '0');
+        cell.setAttribute('tabindex', '0');
 
         // Left click
-        gridItem.addEventListener('click', function(e) {
+        cell.addEventListener('click', function(e) {
             lastMouseX = e.pageX;
             lastMouseY = e.pageY;
 
@@ -394,7 +383,7 @@ function createCells(cellCount) {
         }, false);
 
         // Right click
-        gridItem.addEventListener('contextmenu', function(e) {
+        cell.addEventListener('contextmenu', function(e) {
             e.preventDefault();
 
             lastMouseX = e.pageX;
@@ -406,34 +395,34 @@ function createCells(cellCount) {
         }, false);
 
         // Track mouse position on mousemove
-        gridItem.addEventListener('mousemove', function(event) {
+        cell.addEventListener('mousemove', function(event) {
             lastMouseX = event.pageX;
             lastMouseY = event.pageY;
         });
 
         // Need to set the focus on the div in order to listen for keypresses
-        gridItem.addEventListener('mouseenter', function() {
-            currentGridItem = gridItem; 
-            gridItem.focus();
+        cell.addEventListener('mouseenter', function() {
+            currentCell = cell; 
+            cell.focus();
         });
 
         // Remove focus
-        gridItem.addEventListener('mouseleave', function() {
-            gridItem.blur(); 
+        cell.addEventListener('mouseleave', function() {
+            cell.blur(); 
         });
 
         // CTRL + C
-        gridItem.addEventListener('keydown', function(e) {
+        cell.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
                 showCopyContextMenu(lastMouseX, lastMouseY);
             }
         }, false);
 
-        gridContainer.appendChild(gridItem);
+        gridContainer.appendChild(cell);
     }
 }
 
-function changeGridItemColor(input) {
+function changeCellColor(input) {
     let isValidInput = true;
     let color = null;
 
@@ -479,7 +468,7 @@ function changeGridItemColor(input) {
         input.classList.remove('input-valid');     
     }
     else {
-        currentGridItem.style.backgroundColor = color.toHex();
+        currentCell.style.backgroundColor = color.toHex();
         updateDataTextBox();
 
         input.classList.add('input-valid');    
@@ -487,28 +476,22 @@ function changeGridItemColor(input) {
     }
 }
 
-// Hide both context menus when the click target is not within either context menu
-document.addEventListener('click', function(e) {
-    if (!inputContextMenu.contains(e.target) && !copyContextMenu.contains(e.target)) {
-        closeContextMenus();
-    }
-});
+function updateDataTextBox() {
+    codexTextData.value = "// Options\n";
+    codexTextData.value += `columnCount: ${codexData.options.columnCount}\n`;
+    codexTextData.value += `cellCount: ${codexData.options.cellCount}\n`;
+    codexTextData.value += `cellSize: ${codexData.options.cellSize}\n`;
+    codexTextData.value += `gapSize: ${codexData.options.gapSize}\n`;
+    codexTextData.value += `borderRadius: ${codexData.options.borderRadius}\n`;
 
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeContextMenus();
-    }
-});
+    codexTextData.value += "\n// Colors\n";
 
-function debug() {
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'd' || event.key === 'D') {
-            document.body.classList.toggle('show-borders');
-        }
-    });
-}
+    for(let cell of document.querySelectorAll('.grid-item')) {
+        const c = Color.fromRGBString(cell.style.backgroundColor);
+        codexTextData.value += `color: ${c.toHex()}\n`;    
+    }
+};
 
 initOptions();
-// debug();
 
 // #endregion

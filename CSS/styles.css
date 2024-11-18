@@ -23,6 +23,7 @@ textarea {
     font-size: var(--size-font);
     resize: none;
     height: 100%;
+    outline: none;
 }
 
 ion-icon {

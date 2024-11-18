@@ -16,7 +16,7 @@ JavaScript, CSS, HTML, Node.js
 Color Codex is a web-based tool designed to help you create custom color maps effortlessly.
 
 ## Screenshots
-![screenshot-01](https://github.com/CraigMason19/Color-Codex/blob/master/screenshots/screen-1.png)
+![screenshot-01](https://github.com/CraigMason19/Color-Codex/blob/master/screenshots/screenshot-01.png)
 
 ### Features
 

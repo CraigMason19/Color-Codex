@@ -509,6 +509,6 @@ function debug() {
 }
 
 initOptions();
-debug();
+// debug();
 
 // #endregion

@@ -260,7 +260,6 @@ button ion-icon {
     align-items: center;
     justify-content:flex-start;
     height:var(--height-color-copy-container);
-
     padding: var(--padding-color-copy-container);
 }
 

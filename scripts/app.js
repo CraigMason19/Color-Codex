@@ -263,41 +263,20 @@ modalCloseButton.addEventListener("click", function() {
 
 // #region Context Menu
 
-// Make sure the menu isn't offscreen on the right or bottom, if it is reverse the menu
- 
-function fitContextMenuToViewport(x, y, contextMenu) {
-    contextMenu.style.left = `${x}px`;
-    contextMenu.style.top = `${y}px`;
-
-    // Ensure offsetWidth is calculated after making the menu visible
-    const menuWidth = contextMenu.offsetWidth;
-    const menuHeight = contextMenu.offsetHeight;
-
-    console.log(x, y);
-    console.log(`Body w:${document.body.clientWidth}, Body h:${document.body.clientHeight}`)
-
-    // Check if the menu overflows to the right or to the bottom
-    if (x + menuWidth > document.body.clientWidth) {
-        contextMenu.style.left = `${x - menuWidth - 64}px`;
-
-        console.log(`Menu overflow: x=${x}, menuWidth=${menuWidth}, newLeft=${x - menuWidth}`);
-    }
-
-    if(y + menuHeight > document.body.clientHeight) {
-        contextMenu.style.top = `${y - menuHeight}px`;
-    }
-}
-
 function showInputContextMenu(x, y) {
     copyContextMenu.style.display = 'none';
-    inputContextMenu.style.display = 'block';   
 
-    fitContextMenuToViewport(x, y, inputContextMenu);
+    inputContextMenu.style.display = 'block';
+    inputContextMenu.style.left = `${x}px`;
+    inputContextMenu.style.top = `${y}px`;
 }
 
 function showCopyContextMenu(x, y) {
     inputContextMenu.style.display = 'none';
+
     copyContextMenu.style.display = 'block';
+    copyContextMenu.style.left = `${x}px`;
+    copyContextMenu.style.top = `${y}px`;
 
     let rgbValues = currentCell.style.backgroundColor.match(/\d+/g).map(Number);
     currentColor = Color.fromRGB255(...rgbValues);
@@ -305,8 +284,6 @@ function showCopyContextMenu(x, y) {
     document.getElementById('color-copy-rgb').querySelector('p').innerHTML = currentColor.toRgb();
     document.getElementById('color-copy-rgb255').querySelector('p').innerHTML = currentColor.toRgb255();
     document.getElementById('color-copy-hex').querySelector('p').innerHTML = currentColor.toHex();
-
-    fitContextMenuToViewport(x, y, copyContextMenu);
 }
 
 function closeContextMenus() {

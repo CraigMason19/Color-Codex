@@ -9,8 +9,8 @@ export const minimumOptions = {
 };
 
 export const defaultOptions = {
-    columnCount: 11,
-    cellCount: 88,
+    columnCount: 5,
+    cellCount: 25,
     cellSize: 80,
     gapSize: 10,
     borderRadius: 15,

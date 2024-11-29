@@ -62,13 +62,11 @@
     --transition-grid-color-change: background-color 0.2s;
     --transition-show-hide: opacity 0.4s ease-in-out, visibility 0.3s ease-in-out;
 
-    --width-color-input: 15ch;
-    --width-color-picker: 16.3ch;
-    --width-copy-context-menu: 12%;
-    --width-input-context-menu: 20%;
-    --width-modal: 40%;
     --width-option-input: 8ch;
+    --width-color-input: 15ch;
+    --width-modal: 40%;
     --width-side-panel: 20%;
+    --width-color-picker: 16.3ch;
 
     --z-index-context-menu: 500;
     --z-index-modal: 1000;

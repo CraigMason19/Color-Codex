@@ -1,31 +1,5 @@
 @import './constants.css';
 
-/* #region Debug */
-
-/* Show all borders for ALL elements */
-.show-borders * {
-    outline: var(--debug-outline);
-}
-
-/* .modal {
-    opacity: 1 !important;
-    visibility: visible !important;    
-} */
-
-/* #input-context-menu {
-    display: block;
-    top: var(--debug-top-context-menu);
-    left: var(--debug-left-input-context-menu);
-} */
-
-/* #copy-context-menu {
-    display: block;
-    top: var(--debug-top-context-menu);
-    left: var(--debug-left-copy-context-menu);
-} */
-
-/* #endregion */
-
 /* #region Globals */
 
 /* CSS reset 
@@ -277,15 +251,8 @@ button ion-icon {
     color: var(--color-font-selected);
     display: none;
     position: absolute;
+    width: fit-content;
     z-index: var(--z-index-context-menu);
-}
-
-#input-context-menu {
-    width: var(--width-input-context-menu);
-}
-
-#copy-context-menu {
-    width: var(--width-copy-context-menu);
 }
 
 .color-copy-container {
@@ -346,5 +313,31 @@ button ion-icon {
     border-color: var(--border-color-invalid) !important;
     box-shadow: var(--box-shadow-input-invalid) !important;
 }
+
+/* #endregion */
+
+/* #region Debug */
+
+/* Show all borders for ALL elements */
+.show-borders * {
+    outline: var(--debug-outline);
+}
+
+/* .modal {
+    opacity: 1 !important;
+    visibility: visible !important;    
+} */
+
+/* #input-context-menu {
+    display: block;
+    top: var(--debug-top-context-menu);
+    left: var(--debug-left-input-context-menu);
+} */
+
+/* #copy-context-menu {
+    display: block;
+    top: var(--debug-top-context-menu);
+    left: var(--debug-left-copy-context-menu);
+} */
 
 /* #endregion */

@@ -241,7 +241,12 @@ button ion-icon {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     color: var(--color-font-selected);
-    left: calc(60%); /* Center horizontally relative to the remaining 80% of the screen (considering 20% sidebar) */
+
+    /* Show centered in the middle of the grid window */
+    left: calc(var(--width-side-panel) + ((100% - var(--width-side-panel)) / 2)); 
+    /* Show centered on the full window */
+    /* left: calc(50%);  */
+
     min-width: var(--min-width-popup);
     opacity: 0;
     padding: var(--padding-popup);

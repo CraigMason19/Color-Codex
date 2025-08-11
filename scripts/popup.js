@@ -22,7 +22,7 @@ export function showPopup(title, content, color, fadeOutTime = POPUP_FADE_OUT) {
     const popup = document.createElement('div');
     popup.classList.add('popup');
     popup.style.backgroundColor = color.toHex();
-
+ 
     const popupTitle = document.createElement('p');
     popupTitle.classList.add('popup-title');
     popupTitle.textContent = title;
